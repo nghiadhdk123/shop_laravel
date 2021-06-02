@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('backend.product.index');
+        $category = Category::all();
+        return view('backend.product.index', [
+            'cate' => $category
+        ]);
     }
 
     /**

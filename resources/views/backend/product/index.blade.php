@@ -5,7 +5,7 @@
 <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Danh sách sản phẩm</h1>
+                <h1 class="m-0 text-dark">Danh muc sản phẩm</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Sản phẩm mới nhập</h3>
+                        <h3 class="card-title">Danh muc</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -44,41 +44,22 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tên sản phẩm</th>
+                                <th>Tên danh muc</th>
                                 <th>Thời gian</th>
-                                <th>Status</th>
-                                <th>Mô tả</th>
+                                <th>Depth</th>
+                                <th>Slug</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($cate as $key)
                             <tr>
-                                <td>183</td>
-                                <td>John Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-success">Approved</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                <td>{{ $key->id }}</td>
+                                <td>{{ $key->name }}</td>
+                                <td>{{ $key->updated_at }}</td>
+                                <td>{{ $key->depth }}</td>
+                                <td>{{ $key->slug }}</td>
                             </tr>
-                            <tr>
-                                <td>219</td>
-                                <td>Alexander Pierce</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-warning">Pending</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                            </tr>
-                            <tr>
-                                <td>657</td>
-                                <td>Bob Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-primary">Approved</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                            </tr>
-                            <tr>
-                                <td>175</td>
-                                <td>Mike Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-danger">Denied</span></td>
-                                <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
