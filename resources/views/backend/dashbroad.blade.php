@@ -109,8 +109,10 @@
                                         <th>ID</th>
                                         <th>Tên sản phẩm</th>
                                         <th>Thời gian</th>
+                                        <th>Danh mục</th>
                                         <th>Status</th>
                                         <th>Mô tả</th>
+                                        <th>User</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -119,15 +121,17 @@
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
                                         <td>11-7-2014</td>
+                                        <td>{{ $value->category->name }}</td>
                                         <td><span class="tag tag-success">{{ $value->slug }}</span></td>
                                         <td>{{ $value->status }}</td>
+                                        <td>{{ $value->user->name }}</td>
                                     </tr>
                                     @endforeach
                             
                                     </tbody>
                                 </table>
                             </div>
-                            {!! $product->links() !!}
+                           
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->

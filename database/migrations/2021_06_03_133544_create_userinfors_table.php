@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+class CreateUserinforsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('userinfors', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default();
-            $table->string('path')->default();
-            $table->integer('product_id');
-            $table->text('source');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('userinfors');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -47,6 +49,24 @@ class UserController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function showProducts($user_id)
+    {
+        $user = User::find($user_id);
+
+        $product = $user->products;
+
+        echo "User " . $user->name ." da tao ra cac san pham : " . "<br>". "<br>";
+        // dd($product);
+        foreach($product as $value)
+        {
+                echo "Name:" . $value->name;
+                echo  "&nbsp&nbsp&nbsp&nbsp" ."ID :" . $value->id;
+                echo "&nbsp&nbsp&nbsp&nbspSlug :" . $value->slug;
+                echo "&nbsp&nbsp&nbsp&nbspPrice :" . $value->origin_price;
+                echo "<br>";
+        }
     }
 
     /**

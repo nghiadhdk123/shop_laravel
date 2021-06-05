@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\DashboardController;
 use \App\Http\Controllers\Backend\ProductController;
 use \App\Http\Controllers\Backend\UserController;
+use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\Backend\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,11 @@ Route::get('/home', function () {
 
 Route::get('/' ,
                 [DashBoardController::class, 'index'])->name('admin.index');
+Route::get('/show' ,
+                [DashBoardController::class, 'show'])->name('admin.show');
+
+Route::get('/show/{id}' , 
+                    [CategoryController::class , 'showProducts'])->name('cate.show');
 
 Route::prefix('product')->group(function() {
     Route::get('/' , 
@@ -29,6 +36,13 @@ Route::prefix('product')->group(function() {
     
     Route::get('/create' , 
                 [ProductController::class, 'create'])->name('product.create');
+
+    Route::get('/show/{id}' , 
+                [ProductController::class, 'show'])->name('product.show');
+
+    Route::get('/showImg/{id}' , 
+                [ProductController::class, 'showImages'])->name('product.showImg');
+
 
 });
 
@@ -38,4 +52,10 @@ Route::prefix('user')->group(function() {
 
     Route::get('/create' , 
                  [UserController::class , 'create'])->name('user.create');
+
+    Route::get('/showProducts/{id}' , 
+                 [UserController::class , 'showProducts'])->name('user.product');
 });
+
+Route::get('/showProductOrder/{id}' , 
+                            [OrderController::class , 'showProducts'])->name('order.product');

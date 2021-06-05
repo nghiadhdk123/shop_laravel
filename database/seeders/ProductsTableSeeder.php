@@ -28,6 +28,13 @@ class ProductsTableSeeder extends Seeder
                 'category_id'=> 1,
                 'updated_at' => carbon::now(),
             ]);
+
+            DB::table('images')->insert([
+                'name'=>'images ' .$i,
+                'product_id'=> $i,
+                'path'=>'abcd '.$i,
+                'source'=>'https://www.google.com/search?q=%E1%BA%A3nh+anime+anime&sxsrf=ALeKk00mK7PDstBDpAnCq-MhBgzJq5Ke7A:1622818667126&tbm=isch&source=iu&ictx=1&fir=CQ4bL-Jy284qnM%252CSuebzYl83uiHvM%252C_&vet=1&usg=AI4_-kQWmz5_bpAx7dFb9uxW2c_KtXkn3w&sa=X&ved=2ahUKEwiJg8HRnv7wAhXTF4gKHQ0WBNYQ9QF6BAgVEAE#imgrc=CQ4bL-Jy284qnM',
+            ]);
         }
         
     }

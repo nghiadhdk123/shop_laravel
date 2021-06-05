@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userInfor(){
+        return $this->hasOne(Userinfor::class);
+    }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }

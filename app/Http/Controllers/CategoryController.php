@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Image;
+use App\Models\Category;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        return view('backend.product.index', [
-            'cate' => $category
-        ]);
+        //
     }
 
     /**
@@ -31,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        //
     }
 
     /**
@@ -53,43 +49,23 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        // $product = Product::find($id);
-        // dd($product->category->slug);
-
-//         $category = Category::find(1);
-
-//         $product = $category->products()->create([
-//             'name' => 'san pham create',
-//             'slug' => 'abcdefg',
-//             'origin_price' => '10000',
-//             'price_sales' => '5000',
-//             'content' => 'Noi dung demo',
-//             'user_id' => 1
-// ]);
-        $product = Product::find($id);
-        $category = Category::find(2);
-
-        $productSaved = $category->products()->save($product);
+        //
     }
 
-    public function showImages($id)
+    public function showProducts($category_id)
     {
-        $product = Product::find($id);
+            $cate = Category::find($category_id);
 
-        $image = $product->images;
+            $product = $cate->products;
 
-        // dd($image);
-        echo "<h2>Image cua Product : $product->name</h2>" . "<br>";
-        foreach($image as $val)
-        {
-            echo "Name :" .$val->name;
-            echo "&nbsp&nbsp&nbsp&nbsp Source :" . $val->source ;
-            echo "&nbsp&nbsp&nbsp&nbsp Path :" .$val->path;
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-        }
-
+            echo "San pham co danh muc :" .$cate->name ."<br>";
+            foreach($product as $value)
+            {
+                echo "Name:" . $value->name;
+                echo  "&nbsp&nbsp&nbsp&nbsp" ."ID :" . $value->id;
+                echo "&nbsp&nbsp&nbsp&nbspSlug :" . $value->slug;
+                echo "<br>";
+            }
     }
 
     /**
@@ -125,4 +101,5 @@ class ProductController extends Controller
     {
         //
     }
+
 }
