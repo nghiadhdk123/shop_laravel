@@ -11,6 +11,12 @@ class Userinfor extends Model
 
     protected $table = "user_infor";
 
+    protected $fillable = [
+        'address',
+        'phone',
+        'user_id'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

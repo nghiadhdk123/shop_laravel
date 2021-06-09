@@ -2,7 +2,10 @@
     <div class="main">
     <div class="wrap">
       <h1><a href="index.html"><img src="/frontend/dist/images/logo.png" alt=""></a></h1>
-      <div class="slogan">Clients choose us!</div>
+      <div class="slogan"> <a href="#">Login</a> </div>
+      <div class="slogan"> <a href="#">Register</a> </div>
+      <div class="slogan"> <a href="{{ route('logout') }}">Logout</a> </div>
+      <div class="slogan"> <i class="fa fa-user ics"></i> </div>
       <div class="tooltips"> <a href="#"><img src="/frontend/dist/images/icon-1.png" alt=""></a><a href="#"><img src="/frontend/dist/images/icon-2.png" alt=""></a><a href="#"><img src="/frontend/dist/images/icon-3.png" alt=""></a> </div>
     </div>
     <div class="nav-shadow">

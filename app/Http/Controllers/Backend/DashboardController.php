@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Userinfor;
+use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index()
@@ -18,7 +19,7 @@ class DashboardController extends Controller
         $users = DB::table('products')->get();
         
         $products = Product::find(1);
-        $category = $products->category;
+        // $category = $products->category;
 
         // die();
 
@@ -32,6 +33,8 @@ class DashboardController extends Controller
         // {
         //     echo $val->name;
         // }
+
+        // dd(Auth::user()->name);
         
         $products = Product::all();
         return view('backend.dashbroad',[

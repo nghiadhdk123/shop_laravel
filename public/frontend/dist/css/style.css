@@ -468,3 +468,15 @@ dl dd a {
 	display:inline-block;
 	margin:0 20px 0 10px;
 }
+
+.ics{
+	width: 25px;
+    height: 25px;
+    background: gray;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+}
