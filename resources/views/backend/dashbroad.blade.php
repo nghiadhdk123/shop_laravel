@@ -108,11 +108,11 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Thời gian</th>
                                         <th>Danh mục</th>
                                         <th>Status</th>
                                         <th>Mô tả</th>
                                         <th>User</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -120,11 +120,16 @@
                                     <tr>
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
-                                        <td>11-7-2014</td>
                                         <td>{{ $value->category->name }}</td>
+                                        <td>{{ $value->status_text }}</td>
                                         <td><span class="tag tag-success">{{ $value->slug }}</span></td>
-                                        <td>{{ $value->status }}</td>
                                         <td>{{ $value->user->name }}</td>
+                                        <td>
+                                            <th>
+                                               <td><a href="#">Xem</a></td>
+                                               <td><a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a></td>
+                                            </th>
+                                        </td>
                                     </tr>
                                     @endforeach
                             
@@ -170,6 +175,9 @@
 
 <!-- Link JS - JQuery -->
 @section('javascript')
+    
+        
+    
    <script src="/backend/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="/backend/plugins/jquery-ui/jquery-ui.min.js"></script>

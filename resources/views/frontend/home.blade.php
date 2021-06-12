@@ -7,23 +7,16 @@
 @section('main-content')
  <div class="header-content">
     <div class="wrap main">
-      <div class="block-1"> <img src="/frontend/dist/images/page1-img1.jpg" alt="" class="img-radius">
+    @foreach($product as $val)
+        <div class="block-1"> <img src="/frontend/dist/images/page1-img1.jpg" alt="" class="img-radius">
         <div class="border-1">
-          <p class="color-1 p2">Security Systems for Home</p>
+          <p class="color-1 p2" style="font-size:30px;color:#088bed">{{ $val->name }}</p>
+          <p class="color-1 p2">{{ $val->category->name }}</p>
           <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet domingid quod mazim placerat.</p>
-          <a href="#" class="button top-1">Read More</a> </div>
+          <a href="{{ $val->id }}" class="button top-1">Buy Now</a> 
+          </div>
       </div>
-      <div class="block-1"> <img src="/frontend/dist/images/page1-img2.jpg" alt="" class="img-radius">
-        <div class="border-1">
-          <p class="color-1 p2">Security Systems for Office</p>
-          <p>Facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod.</p>
-          <a href="#" class="button top-1">Read More</a> </div>
-      </div>
-      <div class="block-1"> <img src="/frontend/dist/images/page1-img3.jpg" alt="" class="img-radius">
-        <div>
-          <p class="color-1 p2">Special Security Systems</p>
-          <p>Tincidunt ut laoreet dolore magna aliquam erat volutpat wisi enim ad minim veniam, quis nostrud exerci tation ullamc.</p>
-          <a href="#" class="button top-1">Read More</a> </div>
+    @endforeach
       </div>
     </div>
   </div>

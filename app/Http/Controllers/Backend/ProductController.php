@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -18,10 +21,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        return view('backend.product.index', [
-            'cate' => $category
-        ]);
+        // $category = Category::all();
+        // return view('backend.product.index', [
+        //     'cate' => $category
+        // ]);
     }
 
     /**
@@ -31,7 +34,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        $category = Category::all();
+        return view('backend.product.create', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -40,9 +46,51 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        //Kiem tra va thong bao loi cua o input
+        // $validatedData = $request->validate([
+        //     'name'         => 'required|min:10|max:255',
+        //     'origin_price' => 'required|numeric',
+        //     'sale_price'   => 'required|numeric',
+        // ]);
+
+        // $validator = Validator::make($request->all(),
+        //     [
+        //         'name'         => 'required|min:10|max:255',
+        //         'origin_price' => 'required|numeric',
+        //         'price_sales'   => 'required|numeric',
+        //     ],
+        //     [
+        //         'required' => ':attribute Không được để trống',
+        //         'min' => ':attribute Không được nhỏ hơn :min',
+        //         'max' => ':attribute Không được lớn hơn :max'
+        //     ],
+        //     [
+        //         'name' => 'Tên sản phẩm',
+        //         'origin_price' => 'Giá gốc',
+        //         'price_sales' => 'Giá bán'
+        //     ]
+        // );
+        // if ($validator->errors()){
+        //     return back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
+
+        $product = new Product();
+        $product->name = $request->get('name');
+        $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
+        $product->category_id = $request->get('category_id');
+        $product->origin_price = $request->get('origin_price');
+        $product->price_sales = $request->get('price_sales');
+        $product->content = $request->get('content');
+        $product->status = $request->get('status');
+        $product->user_id = Auth::user()->id;
+        $product->save();
+
+        // dd($product);
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -100,7 +148,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $category = Category::all();
+
+        // dd($product->category->name);
+        return view('backend.product.update',[
+            'product' => $product, 
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -110,9 +165,20 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->name = $request->get('name');
+        $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
+        $product->category_id = $request->get('category_id');
+        $product->origin_price = $request->get('origin_price');
+        $product->price_sales = $request->get('price_sales');
+        $product->content = $request->get('content');
+        $product->status = $request->get('status');
+        $product->save();
+
+        // dd($product);
+        return redirect()->route('admin.index');
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Product;
 use App\Models\Category;
 
@@ -17,7 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::all();
+        return view('backend.product.index',[
+            'cate' => $category,
+        ]);
     }
 
     /**
@@ -27,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.category.create');
     }
 
     /**
@@ -36,9 +40,16 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->get('name');
+        $category->slug = $request->get('slug');
+        $category->parent_id = 1;
+        $category->depth = 1;
+        $category->save();
+        // dd($category);
+        return redirect()->route('category.admin');
     }
 
     /**
@@ -76,7 +87,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        
+        return view('backend.category.update',[
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -86,9 +101,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCategoryRequest $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->get('name');
+        $category->slug = $request->get('slug');
+        $category->save();
+
+        return redirect()->route('category.admin');
     }
 
     /**

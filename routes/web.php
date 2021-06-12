@@ -41,9 +41,29 @@ Route::get('/home', function () {
     return view('frontend.home');
 });
 
+Route::group([
+    'prefix' => 'category',
+],function(){
+
+        Route::get('/' , 
+                    [CategoryController::class , 'index'])->name('category.admin');
+
+        Route::get('/create' , 
+                    [CategoryController::class , 'create'])->name('category.create');
+
+        Route::post('/store' , 
+                    [CategoryController::class , 'store'])->name('category.store');
+
+        Route::get('/edit/{id}' , 
+                    [CategoryController::class , 'edit'])->name('category.edit');
+
+         Route::post('/update/{id}' , 
+                    [CategoryController::class , 'update'])->name('category.update');
+});
+
 Route::get('/dady' ,
                  [DashBoardController::class, 'index'])
-                 ->middleware('auth')
+                //  ->middleware('auth')
                  ->name('admin.index');
 // Route::get('/show' ,
 //                 [DashBoardController::class, 'show'])->name('admin.show');
@@ -63,6 +83,12 @@ Route::prefix('product')->group(function() {
 
     Route::get('/showImg/{id}' , 
                 [ProductController::class, 'showImages'])->name('product.showImg');
+    Route::post('/store',
+                [ProductController::class, 'store'])->name('product.store');
+    Route::get('/edit/{id}' , 
+                [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/update/{id}' , 
+                [ProductController::class , 'update'])->name('product.update');
 
 
 });

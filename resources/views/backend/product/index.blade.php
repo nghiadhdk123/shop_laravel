@@ -48,6 +48,7 @@
                                 <th>Thời gian</th>
                                 <th>Depth</th>
                                 <th>Slug</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,6 +59,12 @@
                                 <td>{{ $key->updated_at }}</td>
                                 <td>{{ $key->depth }}</td>
                                 <td>{{ $key->slug }}</td>
+                                <td>
+                                    <th>
+                                        <td><a href="{{ route('category.edit' , $key->id) }}">Update</a></td>
+                                        <td><a href="#">Delete</a></td>
+                                    </th>
+                                </td>
                             </tr>
                             @endforeach
                             </tbody>
