@@ -28,7 +28,7 @@
                         <h3 class="card-title">Tạo sản phẩm</h3>
                     </div>
                     <!-- /.card-header -->
-                   <form role="form" method="post" action="{{ route('product.store') }}">
+                   <form role="form" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     @if ($errors->any())
@@ -87,7 +87,7 @@
                 <label for="exampleInputFile">Hình ảnh sản phẩm</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">

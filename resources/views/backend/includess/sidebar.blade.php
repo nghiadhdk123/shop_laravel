@@ -41,7 +41,7 @@
                                 <span class="badge badge-info right">6</span>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview" style="display:block;padding-left: 10%;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('product.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
@@ -64,7 +64,7 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview" style="display:block;padding-left: 10%;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('category.create') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

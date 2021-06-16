@@ -28,7 +28,7 @@
                         <h3 class="card-title">Update sản phẩm</h3>
                     </div>
                     <!-- /.card-header -->
-                   <form role="form" method="post" action="{{ route('product.update',$product->id) }}">
+                   <form role="form" method="post" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
                     @csrf
 
                     @if ($errors->any())
@@ -81,13 +81,13 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Mô tả sản phẩm</label>
                 <textarea class="textarea" name="content" placeholder="Place some text here"
-                        style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" value="$product->content"></textarea>
+                        style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" value="{{ $product->content }}"></textarea>
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Hình ảnh sản phẩm</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">

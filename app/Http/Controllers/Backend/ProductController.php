@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -25,6 +26,23 @@ class ProductController extends Controller
         // return view('backend.product.index', [
         //     'cate' => $category
         // ]);
+
+        // dd(storage_path());
+        // Storage::disk('public')->put('filenghia.txt', 'Contents');
+        //  Storage::put('nghia.txt', 'Nghia');
+        // Storage::disk('local_2')->put('file2.txt', 'Contents_NGhia'); //Neu muon co local_2 thi vao filesystem thay doi local -> local_2
+
+        $disk = Storage::disk('public');
+
+        $path = 'filenghia.txt';
+
+        if($disk->exists($path))
+        {
+            $content = $disk->get($path);
+            dd($content);   
+        }else{
+            dd("File not exits");
+        }
     }
 
     /**
@@ -48,36 +66,6 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //Kiem tra va thong bao loi cua o input
-        // $validatedData = $request->validate([
-        //     'name'         => 'required|min:10|max:255',
-        //     'origin_price' => 'required|numeric',
-        //     'sale_price'   => 'required|numeric',
-        // ]);
-
-        // $validator = Validator::make($request->all(),
-        //     [
-        //         'name'         => 'required|min:10|max:255',
-        //         'origin_price' => 'required|numeric',
-        //         'price_sales'   => 'required|numeric',
-        //     ],
-        //     [
-        //         'required' => ':attribute Không được để trống',
-        //         'min' => ':attribute Không được nhỏ hơn :min',
-        //         'max' => ':attribute Không được lớn hơn :max'
-        //     ],
-        //     [
-        //         'name' => 'Tên sản phẩm',
-        //         'origin_price' => 'Giá gốc',
-        //         'price_sales' => 'Giá bán'
-        //     ]
-        // );
-        // if ($validator->errors()){
-        //     return back()
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
-
         $product = new Product();
         $product->name = $request->get('name');
         $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
@@ -88,6 +76,44 @@ class ProductController extends Controller
         $product->status = $request->get('status');
         $product->user_id = Auth::user()->id;
         $product->save();
+
+
+        if ($request->hasFile('image')){
+            // dd('co file');
+            //Cach 1:
+            //1.1
+            // $path = Storage::putFile('images', $request->file('image')); /* Day la cach up loadfile nhung se lay ten ramdom theo he thong */
+            //1.2
+            $files = $request->file('image'); 
+            foreach($files as $file)
+            {
+                $name = time() . 'iphone' . $file->getClientOriginalExtension();
+
+                $name = $file->getClientOriginalName();
+
+                $disk_name = 'public';
+
+                $path = Storage::disk('public')    //->Lưu vào trong thư mục public
+                ->putFileAs('images', $file, $name); 
+                
+                $image = new Image();
+
+                $image->name = $name;
+                $image->disk = $disk_name;
+                $image->path = $path;
+                $image->product_id = $product->id;
+                $image->save();
+            }
+            
+            //Cach 2:
+            //2.1
+            // $file = $request->file('image');
+            // Lưu vào trong thư mục storage
+            // $path = $file->store('images');
+            
+        }else{
+            dd('khong co file');
+        }
 
         // dd($product);
         return redirect()->route('admin.index');
@@ -177,9 +203,35 @@ class ProductController extends Controller
         $product->status = $request->get('status');
         $product->save();
 
+        if ($request->hasFile('image')){
+            $files = $request->file('image'); 
+            foreach($files as $file)
+            {
+                $name = $file->getClientOriginalName();
+
+                $disk_name = 'public';
+
+                $path = Storage::disk('public')    //->Lưu vào trong thư mục public
+                ->putFileAs('images', $file, $name); 
+
+                $image = Image::where('product_id',$product->id)->first();
+                if(!$image){
+                    $image = new Image();
+                }
+                $image->name = $name;
+                $image->disk = $disk_name;
+                $image->path = $path;
+                $image->product_id = $product->id;
+                $image->save();
+            }
+        }else{
+             dd('khong co file');
+            }
         // dd($product);
+        
         return redirect()->route('admin.index');
-    }
+   
+}
 
     /**
      * Remove the specified resource from storage.

@@ -29,4 +29,11 @@ class StoreProductRequest extends FormRequest
             'price_sales'   => 'required|numeric',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên sản phẩm không được phép bỏ trống!',
+        ];
+    }
 }

@@ -10,7 +10,7 @@
     @foreach($product as $val)
         <div class="block-1"> <img src="/frontend/dist/images/page1-img1.jpg" alt="" class="img-radius">
         <div class="border-1">
-          <p class="color-1 p2" style="font-size:30px;color:#088bed">{{ $val->name }}</p>
+          <p class="color-1 p2" style="font-size:20px;color:#088bed">{{ $val->name }}</p>
           <p class="color-1 p2">{{ $val->category->name }}</p>
           <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet domingid quod mazim placerat.</p>
           <a href="{{ $val->id }}" class="button top-1">Buy Now</a> 
