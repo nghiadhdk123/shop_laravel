@@ -95,6 +95,9 @@
                     </div>
                 </div>
             </div>
+             @error('image')
+                            <div class="alert alert-danger">{{ $message }}</div>
+             @enderror
             <div class="form-group">
                 <label>Trạng thái sản phẩm</label>
                 <select name="status" class="form-control select2" style="width: 100%;">
