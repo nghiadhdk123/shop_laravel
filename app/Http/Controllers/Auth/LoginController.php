@@ -21,7 +21,7 @@ class LoginController extends Controller
         // dd($email , $password);
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             // Authentication passed...
-            if(Auth::User()->role == 1){
+            if(Auth::User()->role == 2 || Auth::User()->role == 3){
                 // dd('ADMIN');
                 $request->session()->regenerate();
                 return redirect()->intended('/dady');

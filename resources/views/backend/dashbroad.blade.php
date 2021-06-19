@@ -134,8 +134,20 @@
                                         <td>{{ $value->user->name }}</td>
                                         <td>
                                             <th>
-                                               <td><a href="#">Xem</a></td>
-                                               <td><a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a></td>
+                                               <td>
+                                                    <!-- @if(Illuminate\Support\Facades\Gate::allows('update-product',$value))
+                                                        <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a>
+                                                    @endif -->
+
+                                                    @can('update',$value)
+                                                        <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a>
+                                                    @endcan
+                                               </td>
+                                               <td>
+                                                    @if(Illuminate\Support\Facades\Gate::allows('delete-product',$value))
+                                                        <a href="#" class="btn btn-danger">Delete</a>
+                                                    @endif
+                                               </td>
                                             </th>
                                         </td>
                                     </tr>

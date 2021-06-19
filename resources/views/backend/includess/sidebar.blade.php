@@ -11,10 +11,12 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <a href="{{ route('user.edit' ,Illuminate\Support\Facades\Auth::User()->id) }}">
+                    <img src="{{ \Illuminate\Support\Facades\Storage::url(Illuminate\Support\Facades\Auth::User()->avatar) }}" class="img-circle elevation-2" alt="User Image" style="width:40px;height:40px;border-radius:50%">
+                </a>    
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ Illuminate\Support\Facades\Auth::User()->name }}</a>
+                    <a href="{{ route('user.edit',Illuminate\Support\Facades\Auth::User()->id) }}" class="d-block">{{ Illuminate\Support\Facades\Auth::User()->name }}</a>
                 </div>
             </div>
 
@@ -89,13 +91,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tạo mới</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link">
+                                <a href="{{ route('user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>

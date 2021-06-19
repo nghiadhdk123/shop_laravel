@@ -46,38 +46,54 @@
                                 <th>Email</th>
                                 <th>Tên</th>
                                 <th>Thời gian</th>
-                                <th>Status</th>
+                                <th>Chức vụ</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($user as $vale)
                             <tr>
-                                <td>183</td>
-                                <td>hoannc@gmail.com</td>
-                                <td>John Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-success">Approved</span></td>
+                                <td>{{ $vale->id }}</td>
+                                <td>{{ $vale->email }}</td>
+                                <td>{{ $vale->name }}</td>
+                                <td>{{ $vale->updated_at }}</td>
+                                <td>
+                                    @if($vale->role == 2)
+                                        <p style="background: green;
+                                                    text-align: center;
+                                                    box-shadow: 0px 0px 0px 2px green;
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    margin:0">admin</p>
+                                                           
+                                    @endif
+                                    @if($vale->role == 1)
+                                        <p style="background: black;
+                                                    text-align: center;
+                                                    box-shadow: 0px 0px 0px 2px green;
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    margin:0">user</p>
+                                    @endif
+                                    @if($vale->role == 3)
+                                        <p style="background: red;
+                                                    text-align: center;
+                                                    box-shadow: 0px 0px 0px 2px green;
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    margin:0">boss</p>
+                                    @endif
+                                </td>
+                                <!-- <td>
+                                     @can('update', $vale)
+                                        update
+                                    @endcan -->
+                                    <!-- @if(\Illuminate\Support\Facades\Gate::allows('update-user',$vale))
+                                        update
+                                    @endif -->
+                                <!-- </td> --> 
                             </tr>
-                            <tr>
-                                <td>219</td>
-                                <td>hoannc@gmail.com</td>
-                                <td>Alexander Pierce</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-warning">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>657</td>
-                                <td>hoannc@gmail.com</td>
-                                <td>Bob Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-primary">Approved</span></td>
-                            </tr>
-                            <tr>
-                                <td>175</td>
-                                <td>hoannc@gmail.com</td>
-                                <td>Mike Doe</td>
-                                <td>11-7-2014</td>
-                                <td><span class="tag tag-danger">Denied</span></td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

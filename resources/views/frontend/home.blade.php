@@ -1,60 +1,102 @@
-@extends("frontend.layoutss.master")
+@extends('frontend.layoutss.master')
 
 @section('title')
-    Wibu ShOp
+      Computer and Iphone WibuShop
 @endsection
 
 @section('main-content')
- <div class="header-content">
-    <div class="wrap main">
-    @foreach($product as $val)
-        <div class="block-1"> <img src="/frontend/dist/images/page1-img1.jpg" alt="" class="img-radius">
-        <div class="border-1">
-          <p class="color-1 p2" style="font-size:20px;color:#088bed">{{ $val->name }}</p>
-          <p class="color-1 p2">{{ $val->category->name }}</p>
-          <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet domingid quod mazim placerat.</p>
-          <a href="{{ $val->id }}" class="button top-1">Buy Now</a> 
-          </div>
-      </div>
-    @endforeach
-      </div>
-    </div>
-  </div>
-</header>
-<!--==============================content================================-->
-<section id="content">
-  <div>
-    <div class="wrap">
-      <div class="col-1 border-2">
-        <h2 class="p3">Who We Are?</h2>
-        <div class="wrap"> <img src="/frontend/dist/images/page1-img4.jpg" alt="" class="img-indent img-radius">
-          <p class="extra-wrap">Security Group is one of free website templates created by TemplateMonster.com. This website template is optimized for 1280X1024 screen resolution. This Security Group Template goes with 2 packages – with PSD source files and without them. PSD source files are available for free for the registered members of TemplateMonster.com.</p>
+      <div class="slider-area">
+        	<!-- Slider -->
+			<div class="block-slider block-slider4">
+				<ul class="" id="bxslider-home4">
+        <!-- Xuat ra 4 san pham moi nhat -->
+         @foreach($products as $val)
+            <li>
+              <img src="/frontend/dist/img/h4-slide.png" alt="Slide">
+              <div class="caption-group">
+                <h2 class="caption title">
+                  iPhone <span class="primary">6 <strong>Plus</strong></span>
+                </h2>
+                <h4 class="caption subtitle">Dual SIM</h4>
+                <a class="caption button-radius" href="{{ $val->id }}"><span class="icon"></span>Shop now</a>
+              </div>
+					  </li>
+          @endforeach
+        
+				</ul>
+			</div>
+			<!-- ./Slider -->
+    </div> <!-- End slider area -->
+    
+    <div class="promo-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo1">
+                        <i class="fa fa-refresh"></i>
+                        <p>30 Days return</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo2">
+                        <i class="fa fa-truck"></i>
+                        <p>Free shipping</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo3">
+                        <i class="fa fa-lock"></i>
+                        <p>Secure payments</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo4">
+                        <i class="fa fa-gift"></i>
+                        <p>New products</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="wrap top-2">
-          <ul class="list-1 fleft">
-            <li><a href="#">Lorem ipsum dolor sit consetetur</a></li>
-            <li><a href="#">Sadipscing elitred diam nonumy eirmod</a></li>
-            <li><a href="#">Tempor invidunt labore dolore magna</a></li>
-            <li><a href="#">Aliquyam erat, sed diam volupt</a></li>
-          </ul>
-          <ul class="list-1 fleft">
-            <li><a href="#">At vero eos et accusam et justo duo</a></li>
-            <li><a href="#">Dolores et ea rebum. stetasd gubergren</a></li>
-            <li><a href="#">Takimata sanctus est lorem</a></li>
-            <li><a href="#">Psum dolor sit amet orem ipsum</a></li>
-          </ul>
+    </div> <!-- End promo area -->
+    <div class="product-big-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-bit-title text-center">
+                        <h2>Shop</h2>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="#" class="button-1 top-3">Read More</a> </div>
-      <div class="col-2">
-        <h2 class="p2">Latest News</h2>
-        <a href="#" class="link-2">29.02.2011</a>
-        <p class="p4">At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus.</p>
-        <a href="#" class="link-2">27.02.2011</a>
-        <p class="p4">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.</p>
-        <a href="#" class="link-2">22.02.2011</a>
-        <p>Onvidunt ut labore dolore magna aliquym erat, sed diam voluptua vero eos accusam et justo duo dolores.</p>
-        <a href="#" class="button-1 top-1">Read More</a> </div>
     </div>
-  </div>
-</section>
+    <!-- starts -->
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+            @foreach($all_pr as $key => $value)
+                  <div class="col-md-3 col-sm-6">
+                    <div class="single-shop-product">
+                        <div class="product-upper">
+                            <img src="/frontend/dist/img/product-2.jpg" alt="">
+                        </div>
+                        <h2><a href="">{{ $value->name }}</a></h2>
+                        <div class="product-carousel-price">
+                            <ins>$899.00</ins> <del>$999.00</del>
+                        </div>  
+                        
+                        <div class="product-option-shop">
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ $value->id }}">View detail</a>
+                        </div>                       
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- end -->
 @endsection
+
+

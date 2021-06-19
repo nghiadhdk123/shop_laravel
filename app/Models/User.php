@@ -62,4 +62,19 @@ class User extends Authenticatable
     public function userinfor(){
         return $this->hasOne(Userinfor::class);
     }
+
+    const USER = 1;
+    const ADMIN = 2;
+    const TRUM_CUOI = 3;
+
+    // public static $status_role = [
+    //     self::USER => "user",
+    //     self::ADMIN => "admin",
+    //     self::TRUM_CUOI => "trùm cuối",
+    // ];
+
+    // public function getRoleTextAttribute()
+    // {
+    //     return self::$status_role[$this->role];
+    // }
 }

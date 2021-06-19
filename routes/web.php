@@ -9,6 +9,7 @@ use \App\Http\Controllers\Backend\OrderController;
 use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\Auth\LogoutController;
 use \App\Http\Controllers\Auth\RegisterController;
+use \App\Http\Controllers\Frontend\ProductFeController;
 
 
 /*
@@ -25,6 +26,14 @@ use \App\Http\Controllers\Auth\RegisterController;
 //     return view('welcome');
 // });
 
+Route::group([    
+        'prefix' => 'fe',
+
+    ],function(){
+            Route::get('/',
+                    [ProductFeController::class , 'index'])->name('frontend.index');
+});
+
 Route::get('/' ,
                 [LoginController::class , 'FormLogin'])->name('login.form');
 Route::post('/login' ,
@@ -40,7 +49,7 @@ Route::post('/register'
 
 Route::get('/home', function () {
     return view('frontend.home');
-});
+})->name('home');
 
 Route::group([
     'prefix' => 'category',
@@ -64,7 +73,7 @@ Route::group([
 
 Route::get('/dady' ,
                  [DashBoardController::class, 'index'])
-                //  ->middleware('auth')
+                 ->middleware(['auth','check_admin'])
                  ->name('admin.index');
 // Route::get('/show' ,
 //                 [DashBoardController::class, 'show'])->name('admin.show');
@@ -94,12 +103,17 @@ Route::prefix('product')->group(function() {
 
 });
 
-Route::prefix('user')->group(function() {
+Route::group([
+        'prefix' => 'user',
+    ],function() {
     Route::get('/' , 
                  [UserController::class , 'index'])->name('user.index');
 
-    Route::get('/create' , 
-                 [UserController::class , 'create'])->name('user.create');
+    Route::get('/edit/{id}' , 
+                 [UserController::class , 'edit'])->name('user.edit');
+
+    Route::post('/update/{id}' , 
+                 [UserController::class , 'update'])->name('user.update');
 
     Route::get('/showProducts/{id}' , 
                  [UserController::class , 'showProducts'])->name('user.product');

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -16,7 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.users.index');
+        $user = User::all();
+
+        return view('backend.users.index' ,[
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -26,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-         return view('backend.users.create');
+         
     }
 
     /**
@@ -77,7 +84,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('backend.users.edit',[
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -89,7 +99,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+
+        $file = $request->file('image'); 
+        $name = $file->getClientOriginalName();
+        $path = Storage::disk('public')    //->Lưu vào trong thư mục public
+                ->putFileAs('avtar-user', $file, $name); 
+        
+        $user->avatar = $path;
+        $user->save();
+
+        return redirect()->route('user.index');
     }
 
     /**

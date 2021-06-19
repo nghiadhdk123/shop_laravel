@@ -10,8 +10,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProductController extends Controller
 {
@@ -52,10 +54,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category = Category::all();
-        return view('backend.product.create', [
-            'category' => $category
-        ]);
+        $user = Auth::user();
+        if($user->can('create', Product::class))
+        {
+            $category = Category::all();
+            return view('backend.product.create', [
+                'category' => $category
+            ]);
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -174,15 +182,39 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+      
+        $user = Auth::user();
         $product = Product::find($id);
         $category = Category::all();
 
+        if($user->can('update',$product))
+        {
+            
+
+            return view('backend.product.update',[
+                'product' => $product, 
+                'category' => $category,
+            ]);
+        }else{
+            abort(403);
+        }
+        // $product = Product::find($id);
+        // $category = Category::all();
+
+        // if(Gate::allows('update-product',$product)) //Ham kiem tra san pham co dung user_id de sua san pham khong!!
+        // {
+            
+
+        //     return view('backend.product.update',[
+        //         'product' => $product, 
+        //         'category' => $category,
+        //     ]);
+        // }else{
+        //     abort(403);
+        // }
         // dd($product->category->name);
-        return view('backend.product.update',[
-            'product' => $product, 
-            'category' => $category,
-        ]);
-    }
+        
+        }
 
     /**
      * Update the specified resource in storage.
