@@ -43,9 +43,9 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleInputEmail1">Tên sản phẩm</label>
-                <input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm">
+                <input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm" value="{{ old('name') }}">
                 @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
                 @enderror
                 <!-- <input type="hidden" name="user_id" class="form-control" value=""> -->
             </div>
@@ -62,18 +62,18 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label>Giá gốc</label>
-                        <input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc">
+                        <input type="text" name="origin_price" class="form-control" placeholder="Điền giá gốc"  value="{{ old('origin_price') }}">
                         @error('origin_price')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger alert_tb">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group">
                         <label>Giá bán</label>
-                        <input type="text" name="price_sales" class="form-control" placeholder="Điền giá gốc">
+                        <input type="text" name="price_sales" class="form-control" placeholder="Điền giá gốc"  value="{{ old('price_sales') }}">
                         @error('price_sales')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger alert_tb">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -87,16 +87,17 @@
                 <label for="exampleInputFile">Hình ảnh sản phẩm</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple>
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input type="file" class="custom-file-input" name="image[]" id="uploadFile" multiple>
+                        <label class="custom-file-label" for="exampleInputFile">Chọn ảnh</label>
                     </div>
                     <div class="input-group-append">
                         <span class="input-group-text" id="">Upload</span>
                     </div>
                 </div>
+                <div class="gallery" style="display: flex; flex-wrap: wrap;"></div>
             </div>
              @error('image')
-                            <div class="alert alert-danger">{{ $message }}</div>
+                            <div class="alert alert-danger alert_tb">{{ $message }}</div>
              @enderror
             <div class="form-group">
                 <label>Trạng thái sản phẩm</label>

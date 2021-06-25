@@ -43,7 +43,7 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleInputEmail1">Tên sản phẩm</label>
-                <input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm" value="{{$product->name}}">
+                <input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm" value="{{ $product->name }}">
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
@@ -87,7 +87,7 @@
                 <label for="exampleInputFile">Hình ảnh sản phẩm</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple>
+                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple value="{{ Illuminate\Support\Facades\Storage::url($product->path) }}">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">

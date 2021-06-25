@@ -45,7 +45,7 @@
                 <label for="exampleInputEmail1">Tên danh mục</label>
                 <input type="text" name="name" class="form-control" id="" placeholder="Điền tên sản phẩm">
                 @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
                 @enderror
                 <!-- <input type="hidden" name="user_id" class="form-control" value=""> -->
             </div>

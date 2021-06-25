@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Aler;
 
 class LoginController extends Controller
 {
@@ -24,13 +25,14 @@ class LoginController extends Controller
             if(Auth::User()->role == 2 || Auth::User()->role == 3){
                 // dd('ADMIN');
                 $request->session()->regenerate();
-                return redirect()->intended('/dady');
+                return redirect()->intended('/admin');
             }else{
                 // dd('HOME');
                 $request->session()->regenerate();
                 return redirect()->intended('/home');
             }
         }else{
+            alert()->warning('error','Tài khoản không hợp lệ');
             return redirect()->back();
         }
     }

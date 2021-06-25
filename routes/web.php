@@ -32,6 +32,15 @@ Route::group([
     ],function(){
             Route::get('/',
                     [ProductFeController::class , 'index'])->name('frontend.index');
+            
+            Route::get('/show/{id}',
+                    [ProductFeController::class , 'show'])->name('frontend.show');
+
+            Route::get('/home',
+                    [ProductFeController::class , 'home'])->name('frontend.home');
+
+            Route::get('/cout',
+                    [ProductFeController::class , 'cout'])->name('frontend.cout');
 });
 
 Route::get('/' ,
@@ -46,10 +55,6 @@ Route::get('/register'
 
 Route::post('/register'
                 ,[RegisterController::class , 'register'])->name('register.store');
-
-Route::get('/home', function () {
-    return view('frontend.home');
-})->name('home');
 
 Route::group([
     'prefix' => 'category',
@@ -67,29 +72,33 @@ Route::group([
         Route::get('/edit/{id}' , 
                     [CategoryController::class , 'edit'])->name('category.edit');
 
-         Route::post('/update/{id}' , 
+        Route::post('/update/{id}' , 
                     [CategoryController::class , 'update'])->name('category.update');
+
+        Route::get('/destroy/{id}' ,
+                        [CategoryController::class , 'destroy'])->name('category.destroy');
 });
 
-Route::get('/dady' ,
+Route::get('/admin' ,
                  [DashBoardController::class, 'index'])
                  ->middleware(['auth','check_admin'])
                  ->name('admin.index');
-// Route::get('/show' ,
-//                 [DashBoardController::class, 'show'])->name('admin.show');
+                 
+Route::get('/show' ,
+                [DashBoardController::class, 'show'])->name('admin.show');
 
 Route::get('/show/{id}' , 
                     [CategoryController::class , 'showProducts'])->name('cate.show');
 
 Route::prefix('product')->group(function() {
     Route::get('/' , 
-                [ProductController::class, 'index'])->name('product.index');
+                [ProductController::class, 'index'])->name('product.list');
     
     Route::get('/create' , 
                 [ProductController::class, 'create'])->name('product.create');
 
-    Route::get('/show/{id}' , 
-                [ProductController::class, 'show'])->name('product.show');
+    Route::get('/destroy/{id}' , 
+                [ProductController::class, 'destroy'])->name('product.destroy');
 
     Route::get('/showImg/{id}' , 
                 [ProductController::class, 'showImages'])->name('product.showImg');
@@ -99,24 +108,43 @@ Route::prefix('product')->group(function() {
                 [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/update/{id}' , 
                 [ProductController::class , 'update'])->name('product.update');
-
-
+    Route::get('/show/{id}' , 
+                [ProductController::class, 'show'])->name('product.show');
 });
 
 Route::group([
         'prefix' => 'user',
     ],function() {
-    Route::get('/' , 
-                 [UserController::class , 'index'])->name('user.index');
+        Route::get('/' , 
+                        [UserController::class , 'index'])->name('user.index');
+                
+        Route::get('/show/{id}' , 
+                        [UserController::class , 'show'])->name('user.show');
 
-    Route::get('/edit/{id}' , 
-                 [UserController::class , 'edit'])->name('user.edit');
+        Route::get('/edit/{id}' , 
+                        [UserController::class , 'edit'])->name('user.edit');
 
-    Route::post('/update/{id}' , 
-                 [UserController::class , 'update'])->name('user.update');
+        Route::post('/update/{id}' , 
+                        [UserController::class , 'update'])->name('user.update');
 
-    Route::get('/showProducts/{id}' , 
-                 [UserController::class , 'showProducts'])->name('user.product');
+        Route::get('/showProducts/{id}' , 
+                        [UserController::class , 'showProducts'])->name('user.product');
+        
+        Route::get('/destroy/{id}' ,
+                        [UserController::class , 'destroy'])->name('user.destroy');
+        
+        Route::get('/pq/{id}' ,
+                        [UserController::class , 'decentralization'])->name('user.pq');
+        
+        Route::post('/updatepq/{id}' ,
+                        [UserController::class , 'updatepq'])->name('user.updatepq');
+
+        Route::get('/create' , 
+                        [UserController::class , 'create'])->name('user.create');
+
+        Route::post('/store' , 
+                        [UserController::class , 'store'])->name('user.store');
+
 });
 
 Route::get('/showProductOrder/{id}' , 

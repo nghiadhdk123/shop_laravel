@@ -41,7 +41,12 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->role == User::ADMIN;
+        if($user->role == User::ADMIN || $user->role == User::TRUM_CUOI)
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

@@ -5,7 +5,7 @@
 <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Danh muc sản phẩm</h1>
+                <h1 class="m-0 text-dark">Danh mục hệ điều hành</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,8 +26,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Danh muc</h3>
-
+                        <h3 class="card-title">Danh mục HĐH</h3>
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -44,9 +43,8 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tên danh muc</th>
+                                <th>Tên danh mục</th>
                                 <th>Thời gian</th>
-                                <th>Depth</th>
                                 <th>Slug</th>
                                 <th></th>
                             </tr>
@@ -57,12 +55,11 @@
                                 <td>{{ $key->id }}</td>
                                 <td>{{ $key->name }}</td>
                                 <td>{{ $key->updated_at }}</td>
-                                <td>{{ $key->depth }}</td>
                                 <td>{{ $key->slug }}</td>
                                 <td>
                                     <th>
-                                        <td><a href="{{ route('category.edit' , $key->id) }}">Update</a></td>
-                                        <td><a href="#">Delete</a></td>
+                                        <td><a href="{{ route('category.edit' , $key->id) }}" class="btn btn-warning">Update</a></td>
+                                        <td><a href="{{ route('category.destroy' , $key->id) }}" class="btn btn-danger">Delete</a></td>
                                     </th>
                                 </td>
                             </tr>
@@ -77,10 +74,6 @@
         </div>
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
-@endsection
-
-@section('title')
-    Hello WibuShop
 @endsection
 
 <!-- Link CSS -->

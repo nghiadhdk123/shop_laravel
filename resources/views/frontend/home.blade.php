@@ -10,15 +10,19 @@
 			<div class="block-slider block-slider4">
 				<ul class="" id="bxslider-home4">
         <!-- Xuat ra 4 san pham moi nhat -->
-         @foreach($products as $val)
-            <li>
-              <img src="/frontend/dist/img/h4-slide.png" alt="Slide">
+         @foreach($products as $value)
+            <li style=>
+                @if(count($value->images) > 0 && $value->images)
+                    <img src="{{ $value->images[0]->image_url }}" alt="" style ="width:300px; height:300px;margin-left: 15%">
+                @else
+                    <img src="https://cdn.tgdd.vn/Products/Images/42/228967/samsung-galaxy-a52-8gb-256gb-thumb-violet-600x600-200x200.jpg" style ="width:300px; height:300px;margin-left: 15%" alt="">
+                @endif
               <div class="caption-group">
                 <h2 class="caption title">
-                  iPhone <span class="primary">6 <strong>Plus</strong></span>
+                <span class="primary"><strong>{{ $value->name }}</strong></span>
                 </h2>
-                <h4 class="caption subtitle">Dual SIM</h4>
-                <a class="caption button-radius" href="{{ $val->id }}"><span class="icon"></span>Shop now</a>
+                <h4 class="caption subtitle">{{ $value->category->name }}</h4>
+                <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
               </div>
 					  </li>
           @endforeach
@@ -79,21 +83,26 @@
                   <div class="col-md-3 col-sm-6">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="/frontend/dist/img/product-2.jpg" alt="">
+                            @if(count($value->images) > 0 && $value->images)
+                                <img src="{{ $value->images[0]->image_url }}" alt="" style ="width:200px; height:200px">
+                            @else
+                                <img src="https://cdn.tgdd.vn/Products/Images/42/228967/samsung-galaxy-a52-8gb-256gb-thumb-violet-600x600-200x200.jpg" style ="width:200px; height:200px" alt="">
+                            @endif
                         </div>
                         <h2><a href="">{{ $value->name }}</a></h2>
                         <div class="product-carousel-price">
-                            <ins>$899.00</ins> <del>$999.00</del>
+                            <ins>{{ number_format($value->price_sales) }} VND</ins> <del>{{ number_format($value->origin_price) }} VND</del>
                         </div>  
                         
                         <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ $value->id }}">View detail</a>
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="#">Add to cart</a>
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ route('frontend.show',$value->id) }}">View detail</a>
                         </div>                       
                     </div>
                 </div>
             @endforeach
             </div>
+            {{ $all_pr->links() }}
         </div>
     </div>
     <!-- end -->

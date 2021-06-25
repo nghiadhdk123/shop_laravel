@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Pagination\Paginator;
+use RealRashid\SweetAlert\Facades\Aler;
 
 
 class ProductController extends Controller
@@ -24,27 +26,27 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $category = Category::all();
-        // return view('backend.product.index', [
-        //     'cate' => $category
-        // ]);
+        $product = Product::paginate(5);
+        return view('backend.product.list', [
+            'products' => $product,
+        ]);
 
         // dd(storage_path());
         // Storage::disk('public')->put('filenghia.txt', 'Contents');
         //  Storage::put('nghia.txt', 'Nghia');
         // Storage::disk('local_2')->put('file2.txt', 'Contents_NGhia'); //Neu muon co local_2 thi vao filesystem thay doi local -> local_2
 
-        $disk = Storage::disk('public');
+        // $disk = Storage::disk('public');
 
-        $path = 'filenghia.txt';
+        // $path = 'filenghia.txt';
 
-        if($disk->exists($path))
-        {
-            $content = $disk->get($path);
-            dd($content);   
-        }else{
-            dd("File not exits");
-        }
+        // if($disk->exists($path))
+        // {
+        //     $content = $disk->get($path);
+        //     dd($content);   
+        // }else{
+        //     dd("File not exits");
+        // }
     }
 
     /**
@@ -83,7 +85,7 @@ class ProductController extends Controller
         $product->content = $request->get('content');
         $product->status = $request->get('status');
         $product->user_id = Auth::user()->id;
-        $product->save();
+        $save = $product->save();
 
 
         if ($request->hasFile('image')){
@@ -120,7 +122,13 @@ class ProductController extends Controller
             // $path = $file->store('images');
             
         }else{
-            dd('khong co file');
+            dd('Khong co anh');
+        }
+
+        if($save)
+        {
+            // $request->session()->flash('success' , 'Tạo mới sản phẩm thành công');
+            alert()->success('New','Tạo mới sản phẩm thành công');
         }
 
         // dd($product);
@@ -135,23 +143,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        // $product = Product::find($id);
-        // dd($product->category->slug);
-
-//         $category = Category::find(1);
-
-//         $product = $category->products()->create([
-//             'name' => 'san pham create',
-//             'slug' => 'abcdefg',
-//             'origin_price' => '10000',
-//             'price_sales' => '5000',
-//             'content' => 'Noi dung demo',
-//             'user_id' => 1
-// ]);
         $product = Product::find($id);
-        $category = Category::find(2);
 
-        $productSaved = $category->products()->save($product);
+        return view('backend.product.detail',[
+            'product' => $product,
+        ]);
     }
 
     public function showImages($id)
@@ -189,8 +185,6 @@ class ProductController extends Controller
 
         if($user->can('update',$product))
         {
-            
-
             return view('backend.product.update',[
                 'product' => $product, 
                 'category' => $category,
@@ -233,7 +227,7 @@ class ProductController extends Controller
         $product->price_sales = $request->get('price_sales');
         $product->content = $request->get('content');
         $product->status = $request->get('status');
-        $product->save();
+        $save = $product->save();
 
         if ($request->hasFile('image')){
             $files = $request->file('image'); 
@@ -257,9 +251,13 @@ class ProductController extends Controller
                 $image->save();
             }
         }else{
-             dd('khong co file');
+                dd('Khong co anh');
             }
         // dd($product);
+         if($save)
+        {
+            alert()->success('Update','Cập nhật sản phẩm thành công');
+        }
         
         return redirect()->route('admin.index');
    
@@ -271,8 +269,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $product = Product::find($id);
+
+        $product->delete();
+
+        $image = Image::where('product_id',$id);
+        $image->delete();
+
+        Alert()->success('success' ,'Xóa sản phẩm thành công');
+        
+        return redirect()->route('product.list');
     }
 }

@@ -46,7 +46,7 @@ class RegisterController extends Controller
         if(Auth::attempt($acc))
         {
             $request->session()->regenerate();
-            return redirect()->intended('/dady');
+            return redirect()->intended('/admin');
         }
 
         // return redirect()->route('login.form');

@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('update-user', function ($user){
-           return $user->id == Auth::user()->id;
+           return $user->role == User::TRUM_CUOI;
         });
 
         Gate::define('delete-product', function ($user, $product){

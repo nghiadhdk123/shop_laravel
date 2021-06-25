@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -47,8 +48,19 @@ class CategoryController extends Controller
         $category->slug = $request->get('slug');
         $category->parent_id = 1;
         $category->depth = 1;
-        $category->save();
+        $save = $category->save();
         // dd($category);
+        if($save)
+        {
+            $request->session()->flash('success' , 'Thêm mới danh mục thành công');
+        }else{
+            $request->session()->flash('error' , 'Thêm mới danh mục thất bại');
+        }
+
+        Cache::forget('categories');
+
+        Alert()->success('Success',"Tạo mới danh mục thành công");
+
         return redirect()->route('category.admin');
     }
 
@@ -106,7 +118,18 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->name = $request->get('name');
         $category->slug = $request->get('slug');
-        $category->save();
+        $save = $category->save();
+
+        if($save)
+        {
+            $request->session()->flash('success' , 'Update danh mục thành công');
+        }else{
+            $request->session()->flash('error' , 'Update danh mục thất bại');
+        }
+
+        Cache::forget('categories');
+
+        Alert()->success('Success',"Cập nhật danh mục thành công");
 
         return redirect()->route('category.admin');
     }
@@ -119,7 +142,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        Cache::forget('categories');
+
+        Alert()->success("Success","Xoa thanh cong");
+
+        return redirect()->route('category.admin');
+
     }
 
 }

@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> @yield('title') </title>
+    <title> Computer Shop </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
+    
+    <link rel="stylesheet" href="/backend/style.css">
 
     <link rel="stylesheet" href="/backend/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -45,6 +47,9 @@
         <!-- Content Header (Page header) -->
         
         <!-- /.content-header -->
+        <!-- @include('backend.includess.alert') -->
+        @include('sweetalert::alert')
+        
         @yield('content-header')
       
         <!-- Main content -->
@@ -66,7 +71,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="/backend/plugins/jquery/jquery.min.js"></script>
+    <script src="/backend/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -99,5 +104,42 @@
     <script src="/backend/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/backend/dist/js/demo.js"></script> 
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script>
+    function previewImages()
+    {
+        var preview = document.querySelector('.gallery');
+
+        if(this.files)
+        {
+            [].forEach.call(this.files, readAndPreview);
+        }
+
+        function readAndPreview(file)
+        {
+            if (!/\.(jpe?g|png|gif)$/i.test(file.name))
+            {
+                return alert(file.name + " is not an image");
+            }
+
+            var reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+            var image = new Image();
+            image.width = 150;
+            image.height = 150;
+            image.title  = file.name;
+            image.src    = this.result;
+
+            preview.appendChild(image);
+            });
+
+            reader.readAsDataURL(file);
+
+        }
+    }
+    document.querySelector('#uploadFile').addEventListener("change", previewImages);
+</script>
 </body>
 </html>

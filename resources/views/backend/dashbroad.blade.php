@@ -5,12 +5,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
+                        <h1 class="m-0 text-dark">Trang Trủ</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Bảng điều khiển</li>
                         </ol>
                     </div><!-- /.col -->
                 </div>
@@ -41,7 +41,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>5300</h3>
+                                <h3>{{ count($product) }}</h3>
 
                                 <p>Sản phẩm</p>
                             </div>
@@ -56,7 +56,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>{{ count($user) }}</h3>
 
                                 <p>Người dùng</p>
                             </div>
@@ -106,57 +106,58 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th style="width:160px">Hệ điều hành</th>
-                                        <th>Ảnh mô tả</th>
-                                        <th>Status</th>
-                                        <th>Mô tả</th>
-                                        <th>User</th>
+                                        <th style="width:160px">Mã sản phẩm</th>
+                                        <th style="text-align:center">Tên sản phẩm</th>
+                                        <th style="width:160px;text-align:center">Hãng máy</th>
+                                        <th style="text-align:center">Ảnh mô tả</th>
+                                        <th style="text-align:center">Giá</th>
+                                        <th style="text-align:center">Trạng thái</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($product as $value)
                                     <tr>
-                                        <td>{{ $value->id }}</td>
-                                        <td>{{ $value->name }}</td>
-                                        <td>{{ $value->category->name }}</td>
-                                        <td>
+                                        <td style="text-align:center">{{ $value->id }}</td>
+                                        <td style="text-align:center">{{ $value->name }}</td>
+                                        <td style="text-align:center">{{ $value->category->name }}</td>
+                                        <td style="text-align:center">
                                             @if(count($value->images) > 0)
                                                 <img src="{{ $value->images[0]->image_url }}" alt="" width="90px" height="auto">
                                             @endif
                                         </td>
-                                        <td style="width:100px">
+                                        <td style="width:160px;text-align:center">
+                                            {{ number_format($value->price_sales) }} VNĐ
+                                        </td>
+                                        <td style="width:100px;text-align:center">
                                             {{ $value->status_text }}
                                         </td>
-                                        <td><span class="tag tag-success">{{ $value->slug }}</span></td>
-                                        <td>{{ $value->user->name }}</td>
                                         <td>
                                             <th>
-                                               <td>
+                                               <td style="width:115px">
                                                     <!-- @if(Illuminate\Support\Facades\Gate::allows('update-product',$value))
                                                         <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a>
                                                     @endif -->
 
                                                     @can('update',$value)
-                                                        <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Update</a>
+                                                        <a href="{{ route('product.edit', $value->id) }}" class="btn btn-warning">Cập nhật</a>
                                                     @endcan
                                                </td>
                                                <td>
                                                     @if(Illuminate\Support\Facades\Gate::allows('delete-product',$value))
-                                                        <a href="#" class="btn btn-danger">Delete</a>
+                                                        <a href="{{ route('product.destroy', $value->id) }}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa ?')">Xóa</a>
                                                     @endif
                                                </td>
                                             </th>
                                         </td>
+                                        <td  style="width:150px">
+                                            <a href="{{ route('product.show', $value->id) }}" class="btn btn-primary">Xem chi tiết</a>
+                                        </td>
                                     </tr>
                                     @endforeach
-                            
                                     </tbody>
                                 </table>
                             </div>
-                           
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
@@ -166,9 +167,6 @@
         </section>
 @endsection
 
-@section('title')
-    Hello WibuShop
-@endsection
 
 
 

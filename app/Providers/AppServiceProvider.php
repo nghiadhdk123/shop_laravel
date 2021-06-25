@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,9 +28,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrap();
-        $product = Product::all();
+        // if(!Cache::has('cate'))
+        // {
+        //     $cate = Category::get();
+        //     $cache = Cache::put('cate', $cate, 60);
+        // }
+        // $cate = Cache::get('cate');
 
-        View::share('product',$product);
+        Paginator::useBootstrap();
+        
+        $categories = Cache::remember('categories', 60, function() {
+                return Category::all();
+        });
+
+        View::share('category',$categories);
     }
 }

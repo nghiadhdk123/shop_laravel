@@ -1121,3 +1121,11 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .pagination > li > a, .pagination > li > span {
   color: #5a88ca;
 }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+    display: flex;
+}
+
+.pagination{
+    margin: 20px auto !important;
+}

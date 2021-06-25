@@ -20,7 +20,7 @@ class Checkadmin
     {
         if(Auth::user()->role != User::ADMIN && Auth::user()->role != User::TRUM_CUOI)
         {
-            return redirect()->route('home');
+            return redirect()->route('frontend.index');
         }
         return $next($request);
     }

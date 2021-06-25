@@ -9,6 +9,7 @@
                             <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
                             <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="{{ route('logout') }}"><i class="fa fa-user"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -71,14 +72,10 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop page</a></li>
-                        <li><a href="single-product.html">Single product</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li class="active"><a href="{{ route('frontend.index') }}">Home</a></li>
+                        @foreach($category as $value)
+                            <li><a href="#">{{ $value->name }}</a></li>
+                        @endforeach
                     </ul>
                 </div>  
             </div>

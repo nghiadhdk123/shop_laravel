@@ -36,7 +36,7 @@
                                 <label for="exampleInputEmail1" style="display: flex;
                                                                         justify-content: center;
                                                                         font-size: 30px;">Cập nhật ảnh đại diện</label>
-                                <input type="file" class="form-control" id="" name="image" style="width:100px;height:100px;border-radius:50%;margin:auto" value="{{ $user->avatar }}">
+                                <input type="file" class="form-control" id="" name="image" style="width:100px;height:100px;border-radius:50%;margin:auto" value="{{ Illuminate\Support\Facades\Auth::User()->avatar }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên</label>
@@ -46,16 +46,20 @@
                                 <label for="exampleInputEmail1">Email</label>
                                 <input type="email" class="form-control" name="email" id="" placeholder="Email" value="{{ $user->email }}">
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="exampleInputEmail1">Mật khẩu</label>
-                                <input type="password" class="form-control" id="">
-                            </div> -->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Số điện thoại</label>
+                                <input type="text" class="form-control" name="phone" id="" value="{{ $user->userinfor->phone }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Địa chỉ</label>
+                                <input type="text" class="form-control" name="address" id="" value="{{ $user->userinfor->address }}">
+                            </div>
                         </div>
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <a href="{{ route('user.index') }}" class="btn btn-danger">Huỷ bỏ</a>
-                            <button type="submit" class="btn btn-sucess">Tạo mới</button>
+                            <a href="{{ route('admin.index') }}" class="btn btn-danger">Huỷ cập nhật</a>
+                            <button type="submit" class="btn btn-sucess">Cập nhật</button>
                         </div>
                     </form>
                 </div>
@@ -63,10 +67,6 @@
         </div>
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
-@endsection
-
-@section('title')
-    Hello WibuShop
 @endsection
 
 <!-- Link CSS -->

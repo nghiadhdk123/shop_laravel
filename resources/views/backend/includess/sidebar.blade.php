@@ -3,7 +3,7 @@
         <a href="index3.html" class="brand-link">
             <img src="/backend/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">My shop</span>
+            <span class="brand-text font-weight-light"> <i>Computer Shop</i> </span>
         </a>
 
         <!-- Sidebar -->
@@ -12,8 +12,12 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                 <a href="{{ route('user.edit' ,Illuminate\Support\Facades\Auth::User()->id) }}">
-                    <img src="{{ \Illuminate\Support\Facades\Storage::url(Illuminate\Support\Facades\Auth::User()->avatar) }}" class="img-circle elevation-2" alt="User Image" style="width:40px;height:40px;border-radius:50%">
-                </a>    
+                @if(\Illuminate\Support\Facades\Auth::User()->avatar)
+                    <img src="{{ \Illuminate\Support\Facades\Storage::url(Illuminate\Support\Facades\Auth::User()->avatar) }}" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                @else
+                    <img src="https://st.quantrimang.com/photos/image/072015/22/avatar.jpg" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                @endif
+                </a>
                 </div>
                 <div class="info">
                     <a href="{{ route('user.edit',Illuminate\Support\Facades\Auth::User()->id) }}" class="d-block">{{ Illuminate\Support\Facades\Auth::User()->name }}</a>
@@ -26,10 +30,10 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open">
-                        <a href="./index.html" class="nav-link active">
+                        <a href="{{ route('admin.index') }}" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Dashboard
+                                Bảng điều khiển
                             </p>
                         </a>
 
@@ -40,7 +44,7 @@
                             <p>
                                 Quản lý sản phẩm
                                 <i class="fas fa-angle-left right"></i>
-                                <span class="badge badge-info right">6</span>
+                                <span class="badge badge-info right">{{ count(App\Models\Product::all()) }}</span>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -51,7 +55,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.index') }}" class="nav-link">
+                                <a href="{{ route('product.list') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
                                 </a>
@@ -91,15 +95,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Tạo mới</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="{{ route('user.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('user.create') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Tạo mới</p>
                                 </a>
                             </li>
                         </ul>

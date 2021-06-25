@@ -27,4 +27,13 @@ class StoreCategoryRequest extends FormRequest
             'name' => 'required|min:2|max:255',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Tên danh mục không được bỏ trống !',
+            'name.min' => 'Tên danh mục không ngắn quá 2 kí tự !',
+            'name.max' => 'Tên danh mục dài quá !',
+        ];
+    }
 }

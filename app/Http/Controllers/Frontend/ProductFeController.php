@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 
 
 class ProductFeController extends Controller
@@ -20,11 +23,30 @@ class ProductFeController extends Controller
         $four_product = Product::orderBy('id','desc')
                                 ->take(4)
                                 ->get();
-        $all_product = Product::all()->sortByDesc('id');
+        $all_product = Product::orderBy('id','desc')->paginate(8);
         return view('frontend.home',[
             'products' => $four_product,
             'all_pr' => $all_product,
         ]);
+    }
+
+    public function home()
+    {
+        
+        if(!Cache::has('cate'))
+        {
+            $cate = Category::get();
+            $cache = Cache::put('cate', $cate, 60);
+        }
+            dd('Co cache');
+    }
+
+    public function cout()
+    {   
+            $cate = Cache::get('cate');
+
+            dd($cate);
+
     }
 
     /**
@@ -56,7 +78,11 @@ class ProductFeController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view('frontend.detail',[
+            'product' => $product,
+        ]);
     }
 
     /**
