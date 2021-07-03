@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,6 +25,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('PreventBackHistory');   
+    }
+
     public function index()
     {
         $product = Product::paginate(5);
@@ -128,7 +135,7 @@ class ProductController extends Controller
         if($save)
         {
             // $request->session()->flash('success' , 'Tạo mới sản phẩm thành công');
-            alert()->success('New','Tạo mới sản phẩm thành công');
+            alert()->success('Thành Công','Tạo mới sản phẩm thành công');
         }
 
         // dd($product);
@@ -150,24 +157,28 @@ class ProductController extends Controller
         ]);
     }
 
-    public function showImages($id)
+    public function search(Request $request)
     {
-        $product = Product::find($id);
+        $product = Product::query()->where('name','like','%' .$request->name. '%')->get();
+        $products = Product::all();
+        $user = User::all();
+        return view('backend.dashbroad',[
+            'product' => $product,
+            'products' => $products,
+            'user' => $user,
+        ]);
+    }
 
-        $image = $product->images;
-
-        // dd($image);
-        echo "<h2>Image cua Product : $product->name</h2>" . "<br>";
-        foreach($image as $val)
-        {
-            echo "Name :" .$val->name;
-            echo "&nbsp&nbsp&nbsp&nbsp Source :" . $val->source ;
-            echo "&nbsp&nbsp&nbsp&nbsp Path :" .$val->path;
-            echo "<br>";
-            echo "<br>";
-            echo "<br>";
-        }
-
+    public function filter($id)
+    {
+        $product = Product::where('category_id',$id);
+        $user = User::all();
+        $products = Product::all();
+        return view('backend.dashbroad' ,[
+            'product' => $product,
+            'products' => $products,
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -256,7 +267,7 @@ class ProductController extends Controller
         // dd($product);
          if($save)
         {
-            alert()->success('Update','Cập nhật sản phẩm thành công');
+            alert()->success('Thành công','Cập nhật sản phẩm thành công');
         }
         
         return redirect()->route('admin.index');
@@ -278,7 +289,7 @@ class ProductController extends Controller
         $image = Image::where('product_id',$id);
         $image->delete();
 
-        Alert()->success('success' ,'Xóa sản phẩm thành công');
+        Alert()->success('Thành công' ,'Xóa sản phẩm thành công');
         
         return redirect()->route('product.list');
     }

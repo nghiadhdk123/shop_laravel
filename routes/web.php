@@ -10,6 +10,7 @@ use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\Auth\LogoutController;
 use \App\Http\Controllers\Auth\RegisterController;
 use \App\Http\Controllers\Frontend\ProductFeController;
+use \App\Http\Controllers\Frontend\CartController;
 
 
 /*
@@ -35,13 +36,27 @@ Route::group([
             
             Route::get('/show/{id}',
                     [ProductFeController::class , 'show'])->name('frontend.show');
+        
+            Route::get('/list/{id}',
+                    [ProductFeController::class , 'list'])->name('frontend.list');
 
             Route::get('/home',
                     [ProductFeController::class , 'home'])->name('frontend.home');
 
             Route::get('/cout',
                     [ProductFeController::class , 'cout'])->name('frontend.cout');
+
+            Route::get('/cart',[CartController::class , 'index'])->name('list.cart');
+
+            Route::get('/addcart/{id}',[CartController::class , 'add'])->name('add.cart');
+
+            Route::get('/removecart/{id}',[CartController::class , 'remove'])->name('remove.cart');
+
+            Route::get('/destroycart',[CartController::class , 'destroy'])->name('destroy.cart');
+
 });
+
+
 
 Route::get('/' ,
                 [LoginController::class , 'FormLogin'])->name('login.form');
@@ -58,6 +73,7 @@ Route::post('/register'
 
 Route::group([
     'prefix' => 'category',
+    'middleware' => ['auth']
 ],function(){
 
         Route::get('/' , 
@@ -102,18 +118,29 @@ Route::prefix('product')->group(function() {
 
     Route::get('/showImg/{id}' , 
                 [ProductController::class, 'showImages'])->name('product.showImg');
+
     Route::post('/store',
                 [ProductController::class, 'store'])->name('product.store');
+
     Route::get('/edit/{id}' , 
                 [ProductController::class, 'edit'])->name('product.edit');
+
     Route::post('/update/{id}' , 
                 [ProductController::class , 'update'])->name('product.update');
+
     Route::get('/show/{id}' , 
                 [ProductController::class, 'show'])->name('product.show');
+
+    Route::get('/search' ,
+                [ProductController::class, 'search'])->name('product.search');
+
+    Route::get('/filter/{id}' ,
+                [ProductController::class, 'filter'])->name('product.filter');
 });
 
 Route::group([
         'prefix' => 'user',
+        'middleware' => ['auth'],
     ],function() {
         Route::get('/' , 
                         [UserController::class , 'index'])->name('user.index');
@@ -144,6 +171,9 @@ Route::group([
 
         Route::post('/store' , 
                         [UserController::class , 'store'])->name('user.store');
+
+        Route::get('/showProduct/{id}' , 
+                        [UserController::class , 'showProducts'])->name('user.showProducts');
 
 });
 

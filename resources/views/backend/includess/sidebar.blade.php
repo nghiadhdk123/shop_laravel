@@ -9,20 +9,29 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="flex-wrap:wrap">
                 <div class="image">
-                <a href="{{ route('user.edit' ,Illuminate\Support\Facades\Auth::User()->id) }}">
                 @if(\Illuminate\Support\Facades\Auth::User()->avatar)
                     <img src="{{ \Illuminate\Support\Facades\Storage::url(Illuminate\Support\Facades\Auth::User()->avatar) }}" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
                 @else
                     <img src="https://st.quantrimang.com/photos/image/072015/22/avatar.jpg" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
                 @endif
-                </a>
                 </div>
                 <div class="info">
-                    <a href="{{ route('user.edit',Illuminate\Support\Facades\Auth::User()->id) }}" class="d-block">{{ Illuminate\Support\Facades\Auth::User()->name }}</a>
+                    <a class="d-block">{{ Illuminate\Support\Facades\Auth::User()->name }}</a>
+                </div>
+                <div class="info">
+                    <i class="fa fa-arrow-circle-down" id="bam" aria-hidden="true" style="color: white;font-size: 25px;cursor:pointer"></i>
+                </div>
+                <div id="khung">
+                    <ul id="hangtt">
+                        <li class="hanglitt"><a href="{{ route('user.show',Illuminate\Support\Facades\Auth::User()->id) }}"> Xem thông tin</a></li>
+                        <li class="hanglitt"><a href="{{ route('user.edit',Illuminate\Support\Facades\Auth::User()->id) }}"> Chỉnh sửa thông tin</a></li>
+                        <li class="hanglitt"><a href="{{ route('logout') }}"> Đăng xuất</a></li>
+                    </ul>
                 </div>
             </div>
+           
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">

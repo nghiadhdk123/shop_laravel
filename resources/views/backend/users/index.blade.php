@@ -91,6 +91,9 @@
                                     <a href="{{ route('user.show',$vale->id) }}" class="btn btn-primary">Xem chi tiết</a>
                                 </td>
                                 <td>
+                                    <a href="{{ route('user.showProducts',$vale->id) }}"  class="btn btn-dark">Các sản phẩm đã tạo</a>
+                                </td>
+                                <td>
                                    @if($vale->role == 1 || $vale->role == 2)
                                      <th>
                                         <td>

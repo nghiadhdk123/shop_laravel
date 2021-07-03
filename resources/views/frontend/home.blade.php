@@ -1,9 +1,5 @@
 @extends('frontend.layoutss.master')
 
-@section('title')
-      Computer and Iphone WibuShop
-@endsection
-
 @section('main-content')
       <div class="slider-area">
         	<!-- Slider -->
@@ -95,8 +91,8 @@
                         </div>  
                         
                         <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="#">Add to cart</a>
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ route('frontend.show',$value->id) }}">View detail</a>
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ route('add.cart',$value->id) }}">Thêm giỏ hàng</a>
+                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="{{ route('frontend.show',$value->id) }}">Xem chi tiết</a>
                         </div>                       
                     </div>
                 </div>

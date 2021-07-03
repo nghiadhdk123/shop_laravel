@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
-
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductFeController extends Controller
 {
@@ -79,9 +79,26 @@ class ProductFeController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        $product_category = Product::where('category_id' , $product->category->id)
+                                    ->orderBy('id','desc')
+                                    ->get();
+        $product_random = Product::all()->random(4);
 
+        // dd('Stop');
         return view('frontend.detail',[
             'product' => $product,
+            'product_category' => $product_category,
+            'product_random' => $product_random,
+        ]);
+    }
+
+    public function list($id)
+    {
+        $product = Product::where('category_id', $id)->get();
+        $catego = Category::find($id);
+        return view('frontend.list',[
+            'product' => $product,
+            'zolo' => $catego,
         ]);
     }
 

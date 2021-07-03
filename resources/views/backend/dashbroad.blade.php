@@ -5,11 +5,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Trang Trủ</h1>
+                        <h1 class="m-0 text-dark">Trang Chủ</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Trang chủ</a></li>
                             <li class="breadcrumb-item active">Bảng điều khiển</li>
                         </ol>
                     </div><!-- /.col -->
@@ -41,7 +41,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ count($product) }}</h3>
+                                <h3>{{ count($products) }}</h3>
 
                                 <p>Sản phẩm</p>
                             </div>
@@ -90,17 +90,35 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Sản phẩm mới nhập</h3>
+                               
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                        <form action="{{ route('product.search') }}" method="GET" style="display:flex">
+                                        @csrf
+                                            <input type="text" name="name" class="form-control float-right" placeholder="Tìm kiếm" value="{{ old('name') }}">
 
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </form>
                                         </div>
                                     </div>
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                            <form action="" method="GET" id="form_filter">
+                                                <select name="name" id="" class="form-control float-right">
+                                                <option value="#" selected="selected" disabled="disabled">Danh mục</option>
+
+                                                    @foreach($category as $key => $value)
+                                                        <option value="{{ $key }}">{{ $value->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </div>
+                                
                                 </div>
-                            </div>
+                            
                             <!-- /.card-header -->
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover">
@@ -116,6 +134,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    
                                     @foreach($product as $value)
                                     <tr>
                                         <td style="text-align:center">{{ $value->id }}</td>

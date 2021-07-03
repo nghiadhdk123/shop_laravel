@@ -31,7 +31,7 @@ class UserController extends Controller
             ]);
         }else{
             // $request = session()->flash('error','Bạn không có quyền truy nhập');
-            alert()->info('error','Bạn không có quyền truy nhập');
+            alert()->info('Lỗi','Bạn không có quyền truy nhập');
             return redirect()->route('admin.index');
         }
         
@@ -50,7 +50,7 @@ class UserController extends Controller
             return view('backend.users.create');
         }else{
             // $request = session()->flash('error','Bạn không có quyền truy nhập');
-            alert()->info('error','Bạn không có quyền truy nhập');
+            alert()->info('Lỗi','Bạn không có quyền truy nhập');
             return redirect()->route('admin.index');
         }
     }
@@ -83,7 +83,7 @@ class UserController extends Controller
 
         if($save)
         {
-            Alert()->success('Success','Tạo mới thành công');
+            Alert()->success('Thành Công','Tạo mới người dùng thành công');
         }else{
             dd('fail');
         }
@@ -106,22 +106,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function showProducts($user_id)
+    public function showProducts($id)
     {
-        $user = User::find($user_id);
+        $showProduct = Product::where('user_id',$id)->get();
 
-        $product = $user->products;
-
-        echo "User " . $user->name ." da tao ra cac san pham : " . "<br>". "<br>";
-        // dd($product);
-        foreach($product as $value)
-        {
-                echo "Name:" . $value->name;
-                echo  "&nbsp&nbsp&nbsp&nbsp" ."ID :" . $value->id;
-                echo "&nbsp&nbsp&nbsp&nbspSlug :" . $value->slug;
-                echo "&nbsp&nbsp&nbsp&nbspPrice :" . $value->origin_price;
-                echo "<br>";
-        }
+        return view('backend.users.showProduct',[
+            'showProducts' => $showProduct,
+        ]);
     }
 
     /**
@@ -163,7 +154,7 @@ class UserController extends Controller
         $user->avatar = $path;
         }
 
-        $user->save();
+        $save = $user->save();
 
         
             $infor = Userinfor::where('user_id',Auth::user()->id)->first();
@@ -172,8 +163,12 @@ class UserController extends Controller
             $infor->address = $request->get('address');
 
         $infor->save();
-        
 
+        if($save)
+        {
+            alert()->success('Thành Công','Cập nhật thành công');
+        }
+        
         return redirect()->route('admin.index');
     }
 
@@ -204,7 +199,7 @@ class UserController extends Controller
         if($delete)
         {
             // $request = session()->flash('success','Xóa thàng công');
-            alert()->success('Delete','Xóa thành công');
+            alert()->success('Thành Công','Xóa thành công');
         }
         return redirect()->route('user.index');
     }
@@ -222,8 +217,12 @@ class UserController extends Controller
         $pq = User::find($id);
         
         $pq->role = $request->get('role');
-        $pq->save();
+        $save = $pq->save();
 
+        if($save)
+        {
+            alert()->success('Cập nhập' ,'Phân quyền người dùng thành công');
+        }
         return redirect()->route('user.index');
     }
 }

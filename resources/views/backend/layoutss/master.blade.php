@@ -107,6 +107,14 @@
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <script>
+
+    $(document).ready(function() {
+
+        $('#bam').click(function(){
+            $('#khung').slideToggle(200);
+        });
+});
+    
     function previewImages()
     {
         var preview = document.querySelector('.gallery');

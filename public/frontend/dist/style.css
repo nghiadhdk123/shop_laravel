@@ -1,3 +1,9 @@
+@font-face{
+    font-family: 'nghia';
+    src:url('./SCRIPTIN.ttf');
+    
+}
+
 .floatleft { float: left }
 .floatright { float: right }
 .alignleft {
@@ -813,7 +819,7 @@ input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
     background: none repeat scroll 0 0 #5a88ca;
     border: medium none;
     color: #fff;
-    padding: 6px 25px;display: inline-block
+    padding: 6px 6px;display: inline-block
 }
 .add_to_cart_button:hover {background-color: #222;color: #fff;text-decoration: none}
 form.cart {
@@ -1128,4 +1134,34 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
 
 .pagination{
     margin: 20px auto !important;
+}
+
+#tbr{
+    font-size: 40px;
+    color: gray;
+    opacity: 0.5;
+    text-align: center;
+    margin: 5% 0;
+}
+
+.nut{
+    background: none repeat scroll 0 0 #5a88ca;
+    text-decoration: none;
+    border: medium none;
+    font-size:15px !important;
+    color: #fff;
+    padding: 11px 11px !important;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#logoshop{
+    max-width: 40%;
+}
+
+#textLogo{
+    display: inline;
+    font-size: 25px;
+    font-family: nghia;
+    font-weight: bold;
 }

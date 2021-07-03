@@ -43,8 +43,10 @@ class DashboardController extends Controller
         // dd(Auth::user()->name);
         $products = Product::all()->sortByDesc("id");
         $user = User::all();
+        $product = Product::all();
         return view('backend.dashbroad',[
             'product'=>$products,
+            'products'=>$product,
             'user'=>$user,
         ]);
     }
