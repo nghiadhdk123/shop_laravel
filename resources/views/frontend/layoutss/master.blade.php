@@ -39,9 +39,11 @@
   <body>
    
     @include('frontend.includess.navbar')
+
+    @include('sweetalert::alert')
     
     @yield('main-content')
-    
+
     @include('frontend.includess.footer')
    
     <!-- Latest jQuery form server -->
@@ -62,6 +64,6 @@
     
     <!-- Slider -->
     <script type="text/javascript" src="/frontend/dist/js/bxslider.min.js"></script>
-	<script type="text/javascript" src="/frontend/dist/js/script.slider.js"></script>
+	  <script type="text/javascript" src="/frontend/dist/js/script.slider.js"></script>
   </body>
 </html>

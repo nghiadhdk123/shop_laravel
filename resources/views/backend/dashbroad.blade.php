@@ -103,20 +103,6 @@
                                         </form>
                                         </div>
                                     </div>
-                                    <div class="card-tools">
-                                        <div class="input-group input-group-sm" style="width: 150px;">
-                                            <form action="" method="GET" id="form_filter">
-                                                <select name="name" id="" class="form-control float-right">
-                                                <option value="#" selected="selected" disabled="disabled">Danh mục</option>
-
-                                                    @foreach($category as $key => $value)
-                                                        <option value="{{ $key }}">{{ $value->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </form>
-                                        </div>
-                                    </div>
-                                
                                 </div>
                             
                             <!-- /.card-header -->

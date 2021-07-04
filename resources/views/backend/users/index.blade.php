@@ -28,15 +28,31 @@
                         <h3 class="card-title">Danh sách người dùng</h3>
 
                         <div class="card-tools">
+                        <form action="{{ route('user.search') }}" method="GET">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm theo tên">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </div>
+                        </form>
+                        <div class="card-tools" style="margin-right: 3%;">
+                        <form action="{{ route('user.searchcode') }}" method="GET">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="id" class="form-control float-right" placeholder="Tìm theo mã">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
+                    </div>
+
+                    
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">

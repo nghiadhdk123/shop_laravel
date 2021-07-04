@@ -225,4 +225,20 @@ class UserController extends Controller
         }
         return redirect()->route('user.index');
     }
+
+    public function search(Request $request)
+    {
+        $user = User::query()->where('name','like','%' .$request->name. '%')->get();
+        return view('backend.users.index' ,[
+                'user' => $user,
+            ]);
+    }
+
+    public function searchCode(Request $request)
+    {
+        $user = User::where('id' ,$request->id)->get();
+        return view('backend.users.index' ,[
+                'user' => $user,
+            ]);
+    }
 }

@@ -169,18 +169,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function filter($id)
-    {
-        $product = Product::where('category_id',$id);
-        $user = User::all();
-        $products = Product::all();
-        return view('backend.dashbroad' ,[
-            'product' => $product,
-            'products' => $products,
-            'user' => $user,
-        ]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

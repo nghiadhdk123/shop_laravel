@@ -6,6 +6,7 @@ use \App\Http\Controllers\Backend\ProductController;
 use \App\Http\Controllers\Backend\UserController;
 use \App\Http\Controllers\CategoryController;
 use \App\Http\Controllers\Backend\OrderController;
+use \App\Http\Controllers\Backend\RatingController;
 use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\Auth\LogoutController;
 use \App\Http\Controllers\Auth\RegisterController;
@@ -54,6 +55,8 @@ Route::group([
 
             Route::get('/destroycart',[CartController::class , 'destroy'])->name('destroy.cart');
 
+            Route::post('/rating',[ProductFeController::class , 'insert_rating'])->name('rating');
+
 });
 
 
@@ -70,7 +73,6 @@ Route::get('/register'
 
 Route::post('/register'
                 ,[RegisterController::class , 'register'])->name('register.store');
-
 Route::group([
     'prefix' => 'category',
     'middleware' => ['auth']
@@ -134,8 +136,8 @@ Route::prefix('product')->group(function() {
     Route::get('/search' ,
                 [ProductController::class, 'search'])->name('product.search');
 
-    Route::get('/filter/{id}' ,
-                [ProductController::class, 'filter'])->name('product.filter');
+   Route::get('/rating' ,
+                [RatingController::class, 'index'])->name('review');
 });
 
 Route::group([
@@ -174,6 +176,12 @@ Route::group([
 
         Route::get('/showProduct/{id}' , 
                         [UserController::class , 'showProducts'])->name('user.showProducts');
+        
+        Route::get('/searchName' ,
+                        [UserController::class, 'search'])->name('user.search');
+
+        Route::get('/searchCode' ,
+                        [UserController::class, 'searchCode'])->name('user.searchcode');
 
 });
 

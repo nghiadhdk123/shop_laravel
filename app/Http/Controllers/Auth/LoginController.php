@@ -29,7 +29,7 @@ class LoginController extends Controller
             }else{
                 // dd('HOME');
                 $request->session()->regenerate();
-                return redirect()->intended('/home');
+                return redirect()->intended('/fe');
             }
         }else{
             alert()->warning('error','Tài khoản không hợp lệ');

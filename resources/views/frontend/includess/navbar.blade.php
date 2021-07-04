@@ -4,9 +4,20 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i>Tài khoản của tôi</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i>Đăng nhập</a></li>
+                            <li><a href="{{ route('login.form') }}"><i class="fa fa-user"></i>Đăng nhập</a></li>
                             <li><a href="{{ route('logout') }}"><i class="fa fa-user"></i>Đăng xuất</a></li>
+                            <li>
+                                @if(\Illuminate\Support\Facades\Auth::User())
+                                    @if(\Illuminate\Support\Facades\Auth::User()->avatar)
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url(Illuminate\Support\Facades\Auth::User()->avatar) }}" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                                    @else
+                                        <img src="https://st.quantrimang.com/photos/image/072015/22/avatar.jpg" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                                    @endif
+                                    <b>{{ \Illuminate\Support\Facades\Auth::User()->name }}</b>
+                                @else
+                                    <img src="https://st.quantrimang.com/photos/image/072015/22/avatar.jpg" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>

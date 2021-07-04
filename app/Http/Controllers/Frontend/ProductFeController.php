@@ -7,9 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
+use RealRashid\SweetAlert\Facades\Aler;
+
 
 class ProductFeController extends Controller
 {
@@ -84,6 +89,8 @@ class ProductFeController extends Controller
                                     ->get();
         $product_random = Product::all()->random(4);
 
+       
+
         // dd('Stop');
         return view('frontend.detail',[
             'product' => $product,
@@ -134,5 +141,24 @@ class ProductFeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function insert_rating(Request $request)
+    {
+        $user = Auth::user();
+        if(!$user)
+        {
+            alert()->error("Đăng nhập tài khoản để đánh giá");
+            return redirect()->route('login.form');
+        }else{
+            $rating = new Rating();
+            $rating->content = $request->get('content');
+            $rating->rating = $request->get('rating');
+            $rating->product_id = $request->get('product_id');
+            $rating->user_id = Auth::user()->id;
+            $rating->save();
+            alert()->success("Cảm ơn đánh giá của bạn!!");
+            return redirect()->route('frontend.index');
+        }
     }
 }

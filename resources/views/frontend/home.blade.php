@@ -1,6 +1,7 @@
 @extends('frontend.layoutss.master')
 
 @section('main-content')
+
       <div class="slider-area">
         	<!-- Slider -->
 			<div class="block-slider block-slider4">
