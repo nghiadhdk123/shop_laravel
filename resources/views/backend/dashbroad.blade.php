@@ -26,9 +26,9 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{ count($order) }}</h3>
 
-                                <p>Đơn hàng</p>
+                                <p>Đơn hàng bán ra</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -57,7 +57,6 @@
                         <div class="small-box bg-warning">
                             <div class="inner">
                                 <h3>{{ count($user) }}</h3>
-
                                 <p>Người dùng</p>
                             </div>
                             <div class="icon">
@@ -71,7 +70,16 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65,000,000 </h3>
+                                <h3>
+                                    @php
+                                        $tong=0;
+                                        foreach($order as $value)
+                                        {
+                                            $tong+=$value->total;
+                                        }
+                                        echo number_format($tong);
+                                    @endphp
+                                </h3>
 
                                 <p>Doanh thu</p>
                             </div>
@@ -103,6 +111,44 @@
                                         </form>
                                         </div>
                                     </div>
+
+                                    <div class="card-tools" style="margin-right: 1%;">
+                                        <div class="input-group input-group-sm" style="width: 225px;">
+                                        <form action="{{ route('product.searchcategory') }}" method="GET" style="display:flex">
+                                        @csrf
+                                            <select name="category_id" id="" class="form-control select2" style="width: 100%;">
+                                                <option value="#" selected="selected" disabled="disabled">Tìm theo hãng máy</option>
+                                                @foreach($category as $key => $value)
+                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-tools">
+                                        <div class="input-group input-group-sm" style="width: 225px; ">
+                                        <form action="{{ route('product.searchstatus') }}" method="GET" style="display:flex">
+                                        @csrf
+                                            <select name="status" id="" class="form-control select2" style="width: 75%;">
+                                                <option value="#" selected="selected" disabled="disabled">Tìm theo trạng thái</option>
+                                                @foreach(App\Models\Product::$status_text as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                    </div>
+
                                 </div>
                             
                             <!-- /.card-header -->

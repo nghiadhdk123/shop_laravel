@@ -24,25 +24,7 @@
                 
                 <div class="col-md-4">
                     <div class="header-right">
-                        <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Tiền tệ :</span><span class="value">USD </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">INR</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Ngôn ngữ :</span><span class="value">English </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Anh</a></li>
-                                    <li><a href="#">Pháp</a></li>
-                                    <li><a href="#">Đức</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -79,13 +61,16 @@
                     </button>
                 </div> 
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="{{ route('frontend.index') }}">Trang chử</a></li>
+                    <ul class="nav navbar-nav" style="width:100%">
+                        <li class="active"><a href="{{ route('frontend.index') }}">Trang chủ</a></li>
                         @foreach($category as $value)
                             <li><a href="{{ route('frontend.list',$value->id) }}">{{ $value->name }}</a></li>
                         @endforeach
+                        <li class="active" style="float:right"><a href="{{ route('follow') }}">Theo dõi đơn hàng</a></li>
                     </ul>
-                </div>  
+                    
+                </div>
+
             </div>
         </div>
     </div> <!-- End mainmenu area -->

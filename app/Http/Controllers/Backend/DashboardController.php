@@ -44,10 +44,12 @@ class DashboardController extends Controller
         $products = Product::all()->sortByDesc("id");
         $user = User::all();
         $product = Product::all();
+        $order = Order::where('status',4)->get();
         return view('backend.dashbroad',[
             'product'=>$products,
             'products'=>$product,
             'user'=>$user,
+            'order'=>$order,
         ]);
     }
 

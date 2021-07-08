@@ -47,7 +47,7 @@
         <!-- Content Header (Page header) -->
         
         <!-- /.content-header -->
-        <!-- @include('backend.includess.alert') -->
+        @include('backend.includess.alert')
         @include('sweetalert::alert')
         
         @yield('content-header')

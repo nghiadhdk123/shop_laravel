@@ -231,14 +231,30 @@ class UserController extends Controller
         $user = User::query()->where('name','like','%' .$request->name. '%')->get();
         return view('backend.users.index' ,[
                 'user' => $user,
-            ]);
+        ]);
     }
 
     public function searchCode(Request $request)
     {
-        $user = User::where('id' ,$request->id)->get();
+        $user = User::all()->where('id' ,$request->id);
+
+        if(!$user->first())
+        {
+            session()->flash('error',"Mã người dùng này không tồn tại");
+        }
         return view('backend.users.index' ,[
                 'user' => $user,
-            ]);
+        ]);
+        
+    }
+
+    public function searchRole(Request $request)
+    {
+        $user = User::where('role' ,$request->role)->get();
+        return view('backend.users.index' ,[
+                'user' => $user,
+        ]);
+
+
     }
 }

@@ -8,7 +8,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Nhà</a></li>
                     <li class="breadcrumb-item"><a href="#">Người dùng</a></li>
                     <li class="breadcrumb-item active">Danh sách</li>
                 </ol>
@@ -30,7 +30,7 @@
                         <div class="card-tools">
                         <form action="{{ route('user.search') }}" method="GET">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm theo tên">
+                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm theo tên" value="{{ old('name') }}">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -49,8 +49,24 @@
                             </div>
                         </div>
                         </form>
+                        <div class="card-tools" style="margin-right: 3%;">
+                        <form action="{{ route('user.searchrole') }}" method="GET">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <select name="role" id="" class="form-control select2" style="width: 75%;">
+                                    <option value="#" selected="selected" disabled="disabled">Tìm theo quyền</option>
+                                    @foreach(App\Models\User::$status_role as $key => $value)
+                                        <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                    </div>
+                </div>
+            </div>
 
                     
                     <!-- /.card-header -->
@@ -102,7 +118,6 @@
                                     @endif
                                 </td>
                                 <td></td>
-                                <td></td>
                                 <td>
                                     <a href="{{ route('user.show',$vale->id) }}" class="btn btn-primary">Xem chi tiết</a>
                                 </td>
@@ -133,10 +148,6 @@
         </div>
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
-@endsection
-
-@section('title')
-    Hello WibuShop
 @endsection
 
 <!-- Link CSS -->

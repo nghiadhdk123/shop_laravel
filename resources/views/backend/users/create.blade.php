@@ -31,7 +31,7 @@
                     <!-- form start -->
                     <form role="form" method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
                     @csrf
-		    @if ($errors->any())
+		            @if ($errors->any())
                         <!-- <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -45,37 +45,37 @@
                                 <label for="exampleInputEmail1">Tên</label>
                                 <input type="text" class="form-control" name="name" id="" placeholder="Tên người dùng" value="{{ old('name') }}">
                             </div>
-			    @error('name')
-                    		<div class="alert alert-danger alert_tb">{{ $message }}</div>
-                	    @enderror
+                                @error('name')
+                                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
+                                @enderror
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email</label>
                                 <input type="text" class="form-control" name="email" id="" placeholder="Email" value="{{ old('email') }}">
                             </div>
-			    @error('email')
-                    		<div class="alert alert-danger alert_tb">{{ $message }}</div>
-                	    @enderror
-			    <div class="form-group">
+                                @error('email')
+                                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
+                                @enderror
+			                <div class="form-group">
                                 <label for="exampleInputEmail1">Mật khẩu</label>
                                 <input type="password" class="form-control" name="password" id="" placeholder="Mật khẩu">
                             </div>
-			    @error('password')
-                    		<div class="alert alert-danger alert_tb">{{ $message }}</div>
-                	    @enderror
+                                @error('password')
+                                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
+                                @enderror
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Số điện thoại</label>
                                 <input type="text" class="form-control" name="phone" id="">
                             </div>
-			    @error('phone')
-                    		<div class="alert alert-danger alert_tb">{{ $message }}</div>
-                            @enderror
+                                @error('phone')
+                                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
+                                @enderror
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Địa chỉ</label>
                                 <input type="text" class="form-control" name="address" id="">
                             </div>
-			    @error('address')
-                    		<div class="alert alert-danger alert_tb">{{ $message }}</div>
-                	    @enderror
+                                @error('address')
+                                    <div class="alert alert-danger alert_tb">{{ $message }}</div>
+                                @enderror
 			    <div class="form-group">
                     		<select name="role" id="" class="form-control">
 			       		<option value="#" disabled="disabled" selected="selected">Quyền của người dùng</option>

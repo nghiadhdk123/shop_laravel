@@ -67,14 +67,14 @@ class User extends Authenticatable
     const ADMIN = 2;
     const TRUM_CUOI = 3;
 
-    // public static $status_role = [
-    //     self::USER => "user",
-    //     self::ADMIN => "admin",
-    //     self::TRUM_CUOI => "trùm cuối",
-    // ];
+    public static $status_role = [
+        self::USER => "User",
+        self::ADMIN => "Admin",
+        self::TRUM_CUOI => "Trùm cuối",
+    ];
 
-    // public function getRoleTextAttribute()
-    // {
-    //     return self::$status_role[$this->role];
-    // }
+    public function getRoleTextAttribute()
+    {
+        return self::$status_role[$this->role];
+    }
 }

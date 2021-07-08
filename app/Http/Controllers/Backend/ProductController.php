@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
@@ -37,23 +38,6 @@ class ProductController extends Controller
         return view('backend.product.list', [
             'products' => $product,
         ]);
-
-        // dd(storage_path());
-        // Storage::disk('public')->put('filenghia.txt', 'Contents');
-        //  Storage::put('nghia.txt', 'Nghia');
-        // Storage::disk('local_2')->put('file2.txt', 'Contents_NGhia'); //Neu muon co local_2 thi vao filesystem thay doi local -> local_2
-
-        // $disk = Storage::disk('public');
-
-        // $path = 'filenghia.txt';
-
-        // if($disk->exists($path))
-        // {
-        //     $content = $disk->get($path);
-        //     dd($content);   
-        // }else{
-        //     dd("File not exits");
-        // }
     }
 
     /**
@@ -162,10 +146,40 @@ class ProductController extends Controller
         $product = Product::query()->where('name','like','%' .$request->name. '%')->get();
         $products = Product::all();
         $user = User::all();
+        $order = Order::where('status',4)->get();
         return view('backend.dashbroad',[
             'product' => $product,
             'products' => $products,
             'user' => $user,
+            'order' => $order,
+        ]);
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $product = Product::where('category_id',$request->category_id)->get();
+        $products = Product::all();
+        $user = User::all();
+        $order = Order::where('status',4)->get();
+        return view('backend.dashbroad',[
+            'product' => $product,
+            'products' => $products,
+            'user' => $user,
+            'order' => $order,
+        ]);
+    }
+
+    public function searchStatus(Request $request)
+    {
+        $product = Product::where('status',$request->status)->get();
+        $products = Product::all();
+        $user = User::all();
+         $order = Order::where('status',4)->get();
+        return view('backend.dashbroad',[
+            'product' => $product,
+            'products' => $products,
+            'user' => $user,
+            'order' => $order,
         ]);
     }
 
@@ -280,5 +294,92 @@ class ProductController extends Controller
         Alert()->success('Thành công' ,'Xóa sản phẩm thành công');
         
         return redirect()->route('product.list');
+    }
+
+    public function manage()
+    {
+        $order = Order::orderBy('created_at','desc')->get();
+
+        return view('backend.product.manage',[
+            'order' => $order,
+        ]);
+    }
+
+    public function formhanding($id)
+    {
+        $order = Order::find($id);
+        return view('backend.product.handing',[
+            'order' => $order,
+        ]);
+    }
+
+    public function handing(Request $request,$id)
+    {
+        $order = Order::find($id);
+
+        $order->status = $request->get('status');
+        
+        $order->save();
+
+        if($order)
+        {
+            alert()->success('Xử lí đơn hàng thành công');
+        }
+
+        return redirect()->route('product.manage');
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $order = Order::where('status',$request->status)
+                        ->orderBy('created_at','desc')
+                        ->get();
+        return view('backend.product.manage',[
+            'order' => $order,
+        ]);
+    }
+
+    public function cancelProduct($id)
+    {
+        $order = Order::find($id);
+
+        $order->status = 5;
+        $save = $order->save();
+        if($save)
+        {
+            alert()->success("Đã gửi yêu cầu hủy đơn");
+        }
+        return redirect()->route('follow');
+    }
+
+    public function check($id)
+    {
+        $order = Order::find($id);
+
+        $check = $order->delete();
+        if($check)
+        {
+            alert()->success('Xử lí yêu cầu thành công');
+            return redirect()->route('product.manage');
+        }
+
+        
+    }
+
+    public function cancel($id)
+    {
+        $order = Order::find($id);
+
+        $order->status = 3;
+
+        $cancel = $order->save();
+
+        if($cancel)
+        {
+            alert()->success('Xử lí yêu cầu thành công');
+            return redirect()->route('product.manage');
+        }
+
+        
     }
 }

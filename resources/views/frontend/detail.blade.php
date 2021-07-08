@@ -106,7 +106,7 @@
                                                     </p>
                                                     
                                                     <p><label for="review">Nội dung đánh giá</label> <textarea name="content" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Submit"></p>
+                                                    <p><input type="submit" value="Đánh giá"></p>
                                                 </form>
                                             </div>
                                         </div>

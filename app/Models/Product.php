@@ -34,7 +34,7 @@ class Product extends Model
     }
 
     public function orders(){
-        $this->belongsToMany(Order::class);
+        $this->belongsTo(Order::class);
     }
 
     public function images(){

@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Order;
 use App\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Auth;
 

@@ -28,12 +28,12 @@ use \App\Http\Controllers\Frontend\CartController;
 //     return view('welcome');
 // });
 
+Route::get('/',
+                    [ProductFeController::class , 'index'])->name('frontend.index');
 Route::group([    
         'prefix' => 'fe',
 
     ],function(){
-            Route::get('/',
-                    [ProductFeController::class , 'index'])->name('frontend.index');
             
             Route::get('/show/{id}',
                     [ProductFeController::class , 'show'])->name('frontend.show');
@@ -55,13 +55,17 @@ Route::group([
 
             Route::get('/destroycart',[CartController::class , 'destroy'])->name('destroy.cart');
 
+            Route::post('/pay',[CartController::class , 'pay'])->name('pay.cart');
+
             Route::post('/rating',[ProductFeController::class , 'insert_rating'])->name('rating');
+
+            Route::get('/follow',[ProductFeController::class , 'follow'])->name('follow');
 
 });
 
+//Phan xu li login
 
-
-Route::get('/' ,
+Route::get('/formLogin' ,
                 [LoginController::class , 'FormLogin'])->name('login.form');
 Route::post('/login' ,
                 [LoginController::class , 'Login'])->name('login.store');
@@ -73,6 +77,14 @@ Route::get('/register'
 
 Route::post('/register'
                 ,[RegisterController::class , 'register'])->name('register.store');
+
+Route::get('/redirect', 
+                [LoginController::class ,'redirectToProvider'])->name('login.redirect');
+
+Route::get('/callback', 
+                [LoginController::class ,'handleProviderCallback'])->name('login.callback');
+
+//Phan xu li category
 Route::group([
     'prefix' => 'category',
     'middleware' => ['auth']
@@ -109,35 +121,62 @@ Route::get('/show/{id}' ,
                     [CategoryController::class , 'showProducts'])->name('cate.show');
 
 Route::prefix('product')->group(function() {
-    Route::get('/' , 
+        Route::get('/' , 
                 [ProductController::class, 'index'])->name('product.list');
     
-    Route::get('/create' , 
+        Route::get('/create' , 
                 [ProductController::class, 'create'])->name('product.create');
 
-    Route::get('/destroy/{id}' , 
+        Route::get('/destroy/{id}' , 
                 [ProductController::class, 'destroy'])->name('product.destroy');
 
-    Route::get('/showImg/{id}' , 
+        Route::get('/showImg/{id}' , 
                 [ProductController::class, 'showImages'])->name('product.showImg');
 
-    Route::post('/store',
+        Route::post('/store',
                 [ProductController::class, 'store'])->name('product.store');
 
-    Route::get('/edit/{id}' , 
+        Route::get('/edit/{id}' , 
                 [ProductController::class, 'edit'])->name('product.edit');
 
-    Route::post('/update/{id}' , 
+        Route::post('/update/{id}' , 
                 [ProductController::class , 'update'])->name('product.update');
 
-    Route::get('/show/{id}' , 
+        Route::get('/show/{id}' , 
                 [ProductController::class, 'show'])->name('product.show');
 
-    Route::get('/search' ,
+        Route::get('/search' ,
                 [ProductController::class, 'search'])->name('product.search');
 
-   Route::get('/rating' ,
+        Route::get('/searchcategory' ,
+                [ProductController::class, 'searchCategory'])->name('product.searchcategory');
+
+        Route::get('/searchstatus' ,
+                [ProductController::class, 'searchStatus'])->name('product.searchstatus');
+
+        Route::get('/manage' ,
+                [ProductController::class, 'manage'])->name('product.manage');
+    
+        Route::get('/formhanding/{id}' ,
+                [ProductController::class, 'formhanding'])->name('product.formhanding');
+
+        Route::post('/handing/{id}' ,
+                [ProductController::class, 'handing'])->name('product.handing');
+
+        Route::get('/rating' ,
                 [RatingController::class, 'index'])->name('review');
+        
+        Route::get('/searchProduct' ,
+                [ProductController::class, 'searchProduct'])->name('product.searchProduct');
+
+        Route::get('/cancelProduct/{id}',
+                [ProductController::class, 'cancelProduct'])->name('product.cancel');
+
+        Route::get('/checkProduct/{id}',
+                [ProductController::class, 'check'])->name('product.check');
+
+        Route::get('/destroyProduct/{id}',
+                [ProductController::class, 'cancel'])->name('product.destroyCart');
 });
 
 Route::group([
@@ -182,6 +221,9 @@ Route::group([
 
         Route::get('/searchCode' ,
                         [UserController::class, 'searchCode'])->name('user.searchcode');
+        
+        Route::get('/searchRole' ,
+                        [UserController::class, 'searchRole'])->name('user.searchrole');
 
 });
 

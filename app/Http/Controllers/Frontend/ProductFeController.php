@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Rating;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -160,5 +161,21 @@ class ProductFeController extends Controller
             alert()->success("Cảm ơn đánh giá của bạn!!");
             return redirect()->route('frontend.index');
         }
+    }
+
+    public function follow()
+    {
+        $user = Auth::user();
+        if(!$user)
+        {
+            alert()->error("Bạn cần phải đăng nhập tài khoản để theo dõi đơn hàng của mình");
+            return redirect()->route('login.form');
+        }else{
+            $order = Order::where('user_id',Auth::user()->id)->get();
+            return view('frontend.follow',[
+            'order' => $order,
+        ]);
+        }
+        
     }
 }

@@ -1165,3 +1165,63 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
     font-family: nghia;
     font-weight: bold;
 }
+
+.icon_fl{
+    font-size: 45px;
+}
+
+.khung_fl1{
+    margin-right: 20%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.khung_fl2{
+    margin-right: 5%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.khung_fl1::after{
+    content: '';
+    width: 200px;
+    height: 2px;
+    background-color: red;
+    position: absolute;
+    top: 35%;
+    left: 125%;
+
+}
+
+.tron{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-top: 5%;
+}
+
+.text_fl{
+    text-align: center;
+}
+
+#tbdh{
+    text-align: center;
+    font-size: 40px;
+    color: gray;
+}
+
+.required_cancel{
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
