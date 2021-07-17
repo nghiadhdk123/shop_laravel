@@ -24,7 +24,14 @@ class Product extends Model
         return self::$status_text[$this->status];
     }
 
-    protected $fillable = ['name','slug','origin_price', 'price_sales', 'content', 'user_id'];
+
+    protected $fillable = ['name','slug','origin_price', 'price_sales', 'content','content_more','category_id','user_id'];
+
+    public function getContentMoreJsonAttribute(){
+        $content_json = json_decode($this->content_more, true);
+        return $content_json;
+    }
+
     public function category(){
         return $this->belongsTo(Category::class);
     }

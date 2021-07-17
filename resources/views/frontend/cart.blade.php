@@ -85,7 +85,9 @@
                     @endif
                             <div class="cross-sells">
                                 <h2>Thanh toán đơn hàng</h2>
-                                
+                                    @if(Cart::count() == 0)
+                                        <div class="form-group">Chưa có đơn hàng nào !!</div>
+                                    @else
                                     <div class="form-group">
                                         <label>Tên người nhận</label>
                                         <input type="text" name="name" class="form-control" placeholder="Tên người nhận"  value="{{ old('price_sales') }}">
@@ -124,7 +126,7 @@
                                     <button class="btn btn-primary">Thanh Toán</button>
                             </div>
                         </form>
-
+                    @endif
 
                             <div class="cart_totals ">
                                 <h2>Tổng tất cả đơn hàng</h2>

@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Notification;
 use RealRashid\SweetAlert\Facades\Aler;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
+use Carbon\Carbon;
 
 class CartController extends Controller
 {
@@ -67,10 +69,15 @@ class CartController extends Controller
             $order->content = $request->get('content');
             $order->total = $request->get('total');
             $order->user_id = Auth::user()->id;
-
-            // dd($order);
-
+            $items = Cart::content();
             $order->save();
+
+            $notification = new Notification();
+
+            $notification->user_id = Auth::user()->id;
+            $notification->content = "đã đặt hàng mới một sản phẩm mau vào xử lí nhanh !!";
+            $notification->save();
+
             alert()->success('Đặt hàng thành công','Cảm ơn bạn đã ủng hộ shop');
             return redirect()->route('frontend.index');
         }

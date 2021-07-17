@@ -134,7 +134,7 @@
                         </a>
                     </li>
                     <li class="nav-item has-treeview">
-                        <a href="{{route('product.manage')}}" class="nav-link">
+                        <a href="{{route('backend.statistical')}}" class="nav-link">
                             <i class="nav-icon fas fa-chart-line"></i>
                             <p>
                                 Thống kê

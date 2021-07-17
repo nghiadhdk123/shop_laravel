@@ -10,11 +10,14 @@ use App\Models\Category;
 use App\Models\Rating;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\ImagesRating;
+use App\Models\Notification;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 use RealRashid\SweetAlert\Facades\Aler;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductFeController extends Controller
@@ -89,14 +92,15 @@ class ProductFeController extends Controller
                                     ->orderBy('id','desc')
                                     ->get();
         $product_random = Product::all()->random(4);
-
-       
-
-        // dd('Stop');
+        $nhan_xet = Rating::where('product_id',$id)->get();
+        $nx = Rating::where('product_id',$id)->first();
+        
         return view('frontend.detail',[
             'product' => $product,
             'product_category' => $product_category,
             'product_random' => $product_random,
+            'nhan_xet' => $nhan_xet,
+            'nx' => $nx,
         ]);
     }
 
@@ -158,7 +162,36 @@ class ProductFeController extends Controller
             $rating->product_id = $request->get('product_id');
             $rating->user_id = Auth::user()->id;
             $rating->save();
+
+            $images = $request->file('images');
+            foreach($images as $image)
+            {
+                // echo "Hello";
+                $image->store('image');
+
+                $name = $image->getClientOriginalName();
+
+                $path = Storage::disk('public')    //->Lưu vào trong thư mục public
+                ->putFileAs('images_rating', $image, $name); 
+
+                $imgRating = new ImagesRating();
+
+                $imgRating->rating_id = $rating->id;
+                $imgRating->name = $name;
+                $imgRating->path = $path;
+
+                $imgRating->save();
+            }
+            
+            // dd($rating);
+
             alert()->success("Cảm ơn đánh giá của bạn!!");
+
+            $notification = new Notification();
+
+            $notification->user_id = Auth::user()->id;
+            $notification->content = "đã đánh giá một sản phẩm";
+            $notification->save();
             return redirect()->route('frontend.index');
         }
     }

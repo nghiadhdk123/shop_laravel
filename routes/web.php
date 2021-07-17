@@ -12,6 +12,8 @@ use \App\Http\Controllers\Auth\LogoutController;
 use \App\Http\Controllers\Auth\RegisterController;
 use \App\Http\Controllers\Frontend\ProductFeController;
 use \App\Http\Controllers\Frontend\CartController;
+use \App\Http\Controllers\Backend\StatisticalController;
+use \App\Http\Controllers\Backend\NotiController;
 
 
 /*
@@ -28,8 +30,19 @@ use \App\Http\Controllers\Frontend\CartController;
 //     return view('welcome');
 // });
 
+Route::get('/statistical',
+                [StatisticalController::class , 'index'])->name('backend.statistical');
+Route::post('/statistical-filter',
+                [StatisticalController::class , 'filter'])->name('backend.statisticalfilter');
+Route::post('/statistical-30-day',
+                [StatisticalController::class , 'OneMonth'])->name('backend.chart30day');
+Route::post('/statistical-filter-day',
+                [StatisticalController::class , 'filter'])->name('backend.statisticalfilterday');
+
+Route::get('/destroyNoti/{id}',[NotiController::class, 'destroy'])->name('delete.notifi');
+
 Route::get('/',
-                    [ProductFeController::class , 'index'])->name('frontend.index');
+        [ProductFeController::class , 'index'])->name('frontend.index');
 Route::group([    
         'prefix' => 'fe',
 
@@ -224,7 +237,6 @@ Route::group([
         
         Route::get('/searchRole' ,
                         [UserController::class, 'searchRole'])->name('user.searchrole');
-
 });
 
 Route::get('/showProductOrder/{id}' , 

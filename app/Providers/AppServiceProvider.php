@@ -7,6 +7,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
@@ -41,6 +42,10 @@ class AppServiceProvider extends ServiceProvider
                 return Category::all();
         });
 
+        $notifi = Notification::orderBy('created_at','desc')->get();
+        
+        View::share('notifi',$notifi);
         View::share('category',$categories);
+        
     }
 }

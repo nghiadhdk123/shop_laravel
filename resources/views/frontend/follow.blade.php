@@ -22,8 +22,7 @@
 		<p id="tbdh">Hiện tại chưa có đơn hàng nào được đặt!!</p>
 	@else
 	@foreach($order as $value)
-            <div class="row">
-		    <h2>Tên đơn hàng : {{ $value->product->name }}</h2>
+		<h2>Tên đơn hàng : {{ $value->product->name }}</h2>
                 <div class="col-md-12" style="display:flex;justify-content: center;align-items: center;border-bottom: 2px solid black;margin-bottom: 5%;padding-bottom: 5%;">
 		
 		<div class="khung_fl1">
@@ -75,10 +74,8 @@
 			@endif
 	    	</div>
             </div>
-	    
 	@endforeach
 	@endif
-            </div>
         </div>
-    </div>
+    
 @endsection

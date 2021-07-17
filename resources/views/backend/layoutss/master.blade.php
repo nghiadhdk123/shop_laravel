@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="/backend/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    
+    <link rel="stylesheet" href="/backend/plugins/daterangepicker/daterangepicker.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -106,6 +106,31 @@
     <script src="/backend/dist/js/demo.js"></script> 
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script>
+            $(document).ready(function () {
+                var i = 1;
+                $("#tes").click(function () {
+                    i++;
+                    $('#clone').append('<div class="row" id="row' + i + '">' +
+                        '<div class="col-4 col-lg-2"><div class="form-group">' +
+                        '<input type="text" class="form-control" id="" name="key[]" value="">' +
+                        '</div></div><div class="col-8 col-lg-10">' +
+                        '<div class="form-group" style="position: relative;">' +
+                        '<input type="text" class="form-control" id="" name="val[]" value="">' +
+                        '<span class="btn btn-sm btn-danger closee d-flex align-items-center justify-content-center" id="' + i + '" style="position: absolute; right: 0; top: 0; height: 100%; cursor: pointer;">Close</span>' +
+                        '</div></div></div>')
+                });
+                $(document).on('click', '.closee', function () {
+                    var button_id = $(this).attr("id");
+                    $('#row' + button_id + '').remove();
+                });
+            });
+        </script>
     <script>
 
     $(document).ready(function() {

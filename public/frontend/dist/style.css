@@ -1225,3 +1225,55 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
     text-align: center;
 }
 
+#NX{
+    color: #5a88ca;
+    font-size: 20px;
+    margin-top: 10%;
+    text-transform: uppercase;
+}
+
+.tong_avatar{
+    border-bottom: 1px solid #80808057;
+    padding-bottom: 5%;
+    margin-bottom: 2%;
+}
+
+.tong_ava_rating{
+    display: flex;
+    align-items: center;
+}
+
+.tong_rating{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.name_ava{}
+
+.rating_ava{}
+
+.content_ava{
+    padding-left: 16%;
+    margin-top: 3%;
+    font-size: 20px;
+}
+
+.created_ava{
+    text-indent: 16%;
+    margin-top: 3%;
+    color: gray;
+    font-size: 13px;
+}
+
+.rating_home{
+    display: flex;
+    padding-left: 16%;
+}
+
+.img_rating{
+    width: 70px;
+    height: 70px;
+    margin-right: 5%;
+}
+

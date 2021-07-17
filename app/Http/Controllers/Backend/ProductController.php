@@ -11,12 +11,16 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Order;
+use App\Models\Notification;
+use App\Models\Statistical;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\Paginator;
 use RealRashid\SweetAlert\Facades\Aler;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
 class ProductController extends Controller
@@ -66,16 +70,38 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreProductRequest $request)
-    {
+    {   
         $product = new Product();
+
+        $data = $request->except('_token');
+
+        if ($request->has('key') || $request->has('val')) {
+            $key = $request->get('key');
+            $val = $request->get('val');
+            $list = [];
+            $merge = [];
+            for ($i = 0; $i < count($key); $i++) {
+                $list = [$key[$i] => $val[$i]];
+                $merge = array_merge($merge, $list);
+            }
+            $data['content_more'] = json_encode($merge, JSON_UNESCAPED_UNICODE);
+        }
+
+        $data['slug'] = Str::slug($request->get('name'));
+        $data['user_id'] = Auth::user()->id;
+        $data['created_at'] = Carbon::now();
+
         $product->name = $request->get('name');
-        $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
+        // $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
         $product->category_id = $request->get('category_id');
         $product->origin_price = $request->get('origin_price');
         $product->price_sales = $request->get('price_sales');
         $product->content = $request->get('content');
         $product->status = $request->get('status');
-        $product->user_id = Auth::user()->id;
+        // $product->user_id = Auth::user()->id;
+
+        $product = Product::create($data);
+
         $save = $product->save();
 
 
@@ -106,15 +132,15 @@ class ProductController extends Controller
                 $image->save();
             }
             
-            //Cach 2:
-            //2.1
-            // $file = $request->file('image');
-            // Lưu vào trong thư mục storage
-            // $path = $file->store('images');
-            
         }else{
             dd('Khong co anh');
         }
+
+        $notification = new Notification();
+
+        $notification->user_id = Auth::user()->id;
+        $notification->content = "đã tạo mới một sản phẩm";
+        $notification->save();
 
         if($save)
         {
@@ -205,23 +231,7 @@ class ProductController extends Controller
         }else{
             abort(403);
         }
-        // $product = Product::find($id);
-        // $category = Category::all();
-
-        // if(Gate::allows('update-product',$product)) //Ham kiem tra san pham co dung user_id de sua san pham khong!!
-        // {
-            
-
-        //     return view('backend.product.update',[
-        //         'product' => $product, 
-        //         'category' => $category,
-        //     ]);
-        // }else{
-        //     abort(403);
-        // }
-        // dd($product->category->name);
-        
-        }
+    }
 
     /**
      * Update the specified resource in storage.
@@ -233,6 +243,24 @@ class ProductController extends Controller
     public function update(StoreProductRequest $request, $id)
     {
         $product = Product::find($id);
+
+        $data = $request->except('_token');
+
+        if ($request->has('key')) {
+            $key = $request->get('key');
+            $val = $request->get('val');
+            $list = [];
+            $merge = [];
+            for ($i = 0; $i < count($key); $i++) {
+                $list = [$key[$i] => $val[$i]];
+                $merge = array_merge($merge, $list);
+            }
+            $data['content_more'] = json_encode($merge, JSON_UNESCAPED_UNICODE);
+        } else {
+            $data['content_more'] = null;
+        }
+
+
         $product->name = $request->get('name');
         $product->slug = \Illuminate\Support\Str::slug($request->get('name'));
         $product->category_id = $request->get('category_id');
@@ -240,6 +268,10 @@ class ProductController extends Controller
         $product->price_sales = $request->get('price_sales');
         $product->content = $request->get('content');
         $product->status = $request->get('status');
+
+        $product->update($data);
+
+
         $save = $product->save();
 
         if ($request->hasFile('image')){
@@ -321,6 +353,24 @@ class ProductController extends Controller
         
         $order->save();
 
+        if ($order->status == 4) {
+
+                $now  = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+                if ($statistical = Statistical::where('order_date', $now)->first()){
+                    $statistical->sale += $order->total;
+                    $statistical->updated_at = Carbon::now();
+                    $statistical->save();
+    
+                } else {
+                    $statistical = new Statistical();
+                    $statistical->order_date = $now;
+                    $statistical->sale = $order->total;
+                    $statistical->created_at = Carbon::now();
+                    $statistical->updated_at = Carbon::now();
+                    $statistical->save();
+                }
+            }
+
         if($order)
         {
             alert()->success('Xử lí đơn hàng thành công');
@@ -362,8 +412,6 @@ class ProductController extends Controller
             alert()->success('Xử lí yêu cầu thành công');
             return redirect()->route('product.manage');
         }
-
-        
     }
 
     public function cancel($id)

@@ -85,13 +85,17 @@
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade in active" id="home">
                                                 <h2>Mô tả sản phẩm</h2>  
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>
-
-                                                <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>
+                                                @if(!$product->content_more)
+                                                    Sản phẩm hiện chưa có mô tả
+                                                @else
+                                                    @foreach($product->content_more_json as $key => $value)
+                                                        <div>{{ $key }} : {{$value}}</div>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="profile">
                                                 <h2>Đánh giá sản phẩm</h2>
-                                                <form action="{{ route('rating') }}" method="POST" class="submit-review">
+                                                <form action="{{ route('rating') }}" method="POST" class="submit-review" enctype="multipart/form-data">
                                                 @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                     <p><label for="review">Đánh giá sao</label>
@@ -106,8 +110,49 @@
                                                     </p>
                                                     
                                                     <p><label for="review">Nội dung đánh giá</label> <textarea name="content" id="" cols="30" rows="10"></textarea></p>
+                                                    <p><label for="review">Ảnh mô tả</label>
+                                                        <input type="file" class="form-control custom-file-input" name="images[]" id="exampleInputFile" multiple>
+                                                    </p>
                                                     <p><input type="submit" value="Đánh giá"></p>
                                                 </form>
+                                                <p id="NX">Nhận xét trước</p>
+                                                @if(count($nhan_xet) == 0)
+                                                    <p>Sản phẩm này hiện chưa có nhận xét</p>
+                                                @else
+                                                    @foreach($nhan_xet as $value)
+                                                    <div class="tong_avatar">
+                                                        <div class="tong_ava_rating">
+                                                            <div class="avatar">
+                                                                @if($value->user->avatar)
+                                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($value->user->avatar) }}" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                                                                @else
+                                                                    <img src="https://st.quantrimang.com/photos/image/072015/22/avatar.jpg" class="img-circle elevation-2" alt="" style="width:40px;height:40px;border-radius:50%;object-fit: cover;">
+                                                                @endif
+                                                            </div>
+                                                            <div class="tong_rating">
+                                                                <span class="name_ava">{{ $value->user->name }}</span>
+                                                                <span class="rating_ava">
+                                                                    @php
+                                                                        for($i = 0 ; $i < $value->rating ; $i++)
+                                                                        {
+                                                                            echo "<span> &#9733; </span>";
+                                                                        }
+                                                                    @endphp
+                                                                </span>
+                                                            </div>
+                                                        </div><!-- Tong_ava_rating -->
+                                                        <div class="content_ava">{{ $value->content }}</div>
+                                                        @if(count($nx->images) > 0)
+                                                            <div class="rating_home">
+                                                                    @foreach($nx->images as $value)
+                                                                            <img src="{{ $value->image_url }}" alt="" class="img_rating">
+                                                                    @endforeach
+                                                            </div> <!-- Phần ảnh mô tả -->
+                                                        @endif
+                                                        <div class="created_ava">{{ $value->created_at->toDateString() }}</div>
+                                                    </div> <!-- end Tong -->
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
