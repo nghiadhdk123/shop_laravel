@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use App\Models\Statistical;
 class StatisticalController extends Controller
 {
     public function index()
@@ -23,6 +24,7 @@ class StatisticalController extends Controller
                 $chart_data[] = array(
                     'period' => $value->order_date,
                     'order' => $value->total_order,
+                    'sale' => $value->sale,
                 );
             }
             echo $data = json_encode($chart_data);
@@ -58,10 +60,7 @@ class StatisticalController extends Controller
         foreach ($get as $key => $value) {
             $chart_data[] = array(
                 'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sales' => $value->sales,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity  
+                'sale' => $value->sale
             );
         }
         echo $data = json_encode($chart_data);
@@ -75,10 +74,7 @@ class StatisticalController extends Controller
         foreach ($get as $key => $value) {
             $chart_data[] = array(
                 'period' => $value->order_date,
-                'order' => $value->total_order,
-                'sales' => $value->sales,
-                'profit' => $value->profit,
-                'quantity' => $value->quantity  
+                'sale' => $value->sale
             );
         }
         echo $data = json_encode($chart_data);

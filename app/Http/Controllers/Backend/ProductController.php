@@ -295,9 +295,7 @@ class ProductController extends Controller
                 $image->product_id = $product->id;
                 $image->save();
             }
-        }else{
-                dd('Khong co anh');
-            }
+        }
         // dd($product);
          if($save)
         {

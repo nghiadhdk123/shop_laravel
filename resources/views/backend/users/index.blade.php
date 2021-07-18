@@ -30,7 +30,7 @@
                         <div class="card-tools">
                         <form action="{{ route('user.search') }}" method="GET">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm theo tên" value="{{ old('name') }}">
+                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm theo tên" value="{{ Request()->get('name') }}">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>

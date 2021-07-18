@@ -62,11 +62,12 @@
        
   } );
 </script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script>
     chart30daysOrder();
-  var chart =   new Morris.Bar({
+  var chart =  new Morris.Bar({
   // ID of the element in which to draw the chart.
   element: 'myfirstchart',
   // Chart data records -- each entry in this array corresponds to a point on
@@ -78,7 +79,7 @@
   // The name of the data record attribute that contains x-values.
   xkey: 'period',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['sales'],
+  ykeys: ['sale'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
   labels: ['Doanh Thu'],

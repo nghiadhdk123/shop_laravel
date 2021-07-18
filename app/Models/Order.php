@@ -38,6 +38,4 @@ class Order extends Model
     {
         return self::$status_text[$this->status];
     }
-
-
 }

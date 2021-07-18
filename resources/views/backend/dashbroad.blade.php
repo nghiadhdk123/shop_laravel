@@ -103,7 +103,7 @@
                                         <div class="input-group input-group-sm" style="width: 150px;">
                                         <form action="{{ route('product.search') }}" method="GET" style="display:flex">
                                         @csrf
-                                            <input type="text" name="name" class="form-control float-right" placeholder="Tìm kiếm" value="{{ old('name') }}">
+                                            <input type="text" name="name" class="form-control float-right" placeholder="Tìm kiếm" value="{{ Request()->get('name') }}">
 
                                             <div class="input-group-append">
                                                 <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>

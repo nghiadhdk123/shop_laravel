@@ -19,7 +19,7 @@
                         @endif
                     </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="height:300px;overflow:scroll">
                     @foreach($notifi as $value)
                     <span href="#" class="dropdown-item">
                         <!-- Message Start -->

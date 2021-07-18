@@ -80,7 +80,7 @@
                 <label for="exampleInputFile">Hình ảnh sản phẩm</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" multiple value="{{ Illuminate\Support\Facades\Storage::url($product->path) }}">
+                        <input type="file" class="custom-file-input" name="image[]" id="exampleInputFile" value="{{ $product->images[0]->path }}" multiple>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">
@@ -89,9 +89,9 @@
                 </div>
             </div>
             @error('image')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-
+            
             <div id="clone">
                 <label for="">Thông số kỹ thuật</label>
                     <span id="tes" class="btn btn-sm btn-warning">Thêm</span>
